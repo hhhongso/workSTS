@@ -1,0 +1,22 @@
+package sample05;
+
+import java.util.ArrayList;
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+
+public class ScoreDisp implements Score{
+	@Autowired private ArrayList<ScoreDTO> list;
+	
+	@Override
+	public void execute() {
+		System.out.println("");
+		for(ScoreDTO scoreDTO : list) {
+			System.out.println(scoreDTO.toString());			
+		}
+		
+		
+	}
+
+}

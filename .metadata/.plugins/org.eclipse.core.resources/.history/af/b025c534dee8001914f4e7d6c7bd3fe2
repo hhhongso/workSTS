@@ -1,0 +1,5 @@
+package sample05;
+
+public interface Score {
+	public void calc(int kor, int eng, int math);
+}

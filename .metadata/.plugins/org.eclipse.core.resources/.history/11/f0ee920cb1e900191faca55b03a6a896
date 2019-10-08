@@ -1,0 +1,19 @@
+package sample05;
+
+import lombok.Data;
+
+@Data
+public class ScoreDisp implements Score{
+	private ScoreDTO scoreDTO; 
+	
+	@Override
+	public void execute() {
+		scoreDTO = getScoreDTO();
+		scoreDTO.setTot(scoreDTO.getKor() + scoreDTO.getEng() + scoreDTO.getMath());
+		scoreDTO.setAvg(scoreDTO.getTot() / 3.0);
+		
+		System.out.println(getScoreDTO());
+		
+	}
+
+}

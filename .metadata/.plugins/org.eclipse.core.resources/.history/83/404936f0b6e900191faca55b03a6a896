@@ -1,0 +1,12 @@
+package sample05;
+
+public class ScoreModify implements Score{
+	@Autowired private ArrayList<ScoreDTO> list;
+	
+	@Override
+	public void execute() {
+		
+		
+	}
+
+}

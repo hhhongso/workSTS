@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aop-reference-model>
+<aop-project name="chapter01_SpringMaven"/>
+<aop-project name="chapter01"/>
+<aop-project name="chapter02"/>
+</aop-reference-model>

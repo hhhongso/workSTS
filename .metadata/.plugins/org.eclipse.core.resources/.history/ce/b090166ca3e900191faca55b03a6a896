@@ -1,0 +1,15 @@
+package sample03;
+
+import org.springframework.beans.factory.annotation.Value;
+
+import lombok.Data;
+
+@Data
+public class ScoreDTO {
+	private @Value("길동") String name;
+	private @Value("90") int kor;
+	private @Value("100") int eng;
+	private @Value("88") int math;
+	private int tot;
+	private double avg;
+}
