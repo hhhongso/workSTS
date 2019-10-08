@@ -18,10 +18,11 @@ public class ScoreDelete implements Score{
 			if(list.get(i).getName().equals(name)) {
 				list.remove(i);
 				i--;
+				
 				System.out.println("해당 학생의 정보가 삭제되었습니다. ");
-			} else {
-				System.out.println("해당하는 이름이 없습니다. ");
 			}	
+		} else {
+			System.out.println("해당하는 이름이 없습니다. ");
 		}
 		
 	}

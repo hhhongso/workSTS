@@ -25,7 +25,6 @@ public class ScoreModify implements Score{
 				list.get(i).setTot(list.get(i).getKor() + list.get(i).getEng() + list.get(i).getMath());
 				list.get(i).setAvg(list.get(i).getTot() / 3.0);
 				
-				System.out.println("성적 정보가 수정되었습니다. ");
 				return;
 			} else {
 				System.out.println("해당하는 이름이 없습니다. ");

@@ -4,18 +4,16 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class ScoreInput implements Score {
 	@Autowired private ArrayList<ScoreDTO> list; 
 
 	@Override
 	public void execute() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-		ScoreDTO scoreDTO = context.getBean("scoreDTO", ScoreDTO.class);
+		//ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		//ScoreDTO scoreDTO = context.getBean("scoreDTO");
 		Scanner scan = new Scanner(System.in);		
-		//ScoreDTO scoreDTO = new ScoreDTO();
+		ScoreDTO scoreDTO = new ScoreDTO();
 		System.out.print("이름 입력: ");
 		scoreDTO.setName(scan.next());		
 		System.out.print("국어 점수 입력: ");

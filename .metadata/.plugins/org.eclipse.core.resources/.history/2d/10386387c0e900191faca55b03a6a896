@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
 
 import sample05.ScoreDTO;
 
@@ -11,7 +12,7 @@ import sample05.ScoreDTO;
 public class InstanceScore {
 	private static ArrayList<ScoreDTO> list; 
 
-	@Bean
+	@Bean @Scope("singleton")
 	public ArrayList<ScoreDTO> getArrayList(){
 		if(list == null) {
 			list = new ArrayList<ScoreDTO>();
@@ -19,4 +20,7 @@ public class InstanceScore {
 		return list;
 	}
 	
+	/*
+	 * @Bean public HelloSpring getHelloSpring() { return ; }
+	 */
 }

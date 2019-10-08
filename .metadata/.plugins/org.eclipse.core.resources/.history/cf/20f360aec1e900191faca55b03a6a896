@@ -45,9 +45,9 @@
 	<!-- 	<property name="scoreDTO" ref="scoreDTO"></property> -->
 	</bean>
 
-	<bean id="scoreDisp" class="sample05.ScoreDisp"/>	
-	<bean id="scoreModify" class="sample05.ScoreModify"/>
-	<bean id="scoreDelete" class="sample05.ScoreDelete"/>
+	<bean id="scoreDisp" class="sample05.ScoreDisp"></bean>
+	
+	<bean id="scoreModify" class="sample05.ScoreModify"></bean>
 	
 	
 <!-- 	<bean id="scoreDTO" class="sample05.ScoreDTO">
