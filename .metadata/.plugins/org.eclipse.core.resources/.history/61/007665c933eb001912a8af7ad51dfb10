@@ -1,0 +1,21 @@
+package sample05;
+
+import java.util.ArrayList;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+public class ScoreSort implements Score {
+	@Autowired private ArrayList<ScoreDTO> list; 
+	@Autowired private ScoreDTO scoreDTO;
+	
+	@Override
+	public void execute() {
+		for (ScoreDTO scoreDTO : list) {
+			
+		}
+
+	}
+
+	
+
+}

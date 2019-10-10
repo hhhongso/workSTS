@@ -36,18 +36,43 @@
 		<property name="eng" value="100"/>
 		<property name="math" value="99"/>
 	</bean>-->
-	
-<!-- sample05 -->
-	<context:component-scan base-package="com.conf"/>
-	<bean id="helloSpring" class="sample05.HelloSpring"/>
-	<bean id="scoreDTO" class="sample05.ScoreDTO"/>
-	<bean id="scoreInput" class="sample05.ScoreInput">
-	<!-- 	<property name="scoreDTO" ref="scoreDTO"></property> -->
+
+<!-- sample04 -->
+	<bean id="messageBeanImpl2" class="sample04.MessageBeanImpl">
+		<constructor-arg value="홍길동"/>
+		<property name="phone" value="010-1234-1234"/>
+		<property name="outputter" ref="fileOutputter"/>		
 	</bean>
 
-	<bean id="scoreDisp" class="sample05.ScoreDisp"/>	
-	<bean id="scoreModify" class="sample05.ScoreModify"/>
-	<bean id="scoreDelete" class="sample05.ScoreDelete"/>
+	<bean id="fileOutputter" class="sample04.FileOutputter">
+		<property name="filePath" value="C:/Spring/"/>
+		<property name="fileName" value="result.txt"/>
+	</bean>
+	
+<!-- sample05 -->
+	<!-- <context:component-scan base-package="com.conf"/> -->
+	<bean id="helloSpring" class="sample05.HelloSpring"/>
+	<bean id="arrayList" class="java.util.ArrayList"/>
+	<bean id="scoreDTO5" class="sample05.ScoreDTO" scope="prototype"/>
+	
+	<!-- 왜 이거까지 prototype 이어야 하는지: 참조하는 DTO값이 prototype 일지라도, 이를 사용하는  scoreinput 객체가 singleton이라면 DTO 값 역시 이전 값을 그대로 가져오게 된다.  -->
+	<bean id="scoreInput" class="sample05.ScoreInput" scope="prototype"> 
+	 	<property name="list" ref="arrayList"/>
+	 	<property name="scoreDTO" ref="scoreDTO5"/> 
+	</bean>
+
+	<bean id="scoreDisp" class="sample05.ScoreDisp">
+		<property name="list" ref="arrayList"/>
+	</bean>	
+	<bean id="scoreModify" class="sample05.ScoreModify">
+		<property name="list" ref="arrayList"/>
+	</bean>
+	<bean id="scoreDelete" class="sample05.ScoreDelete">
+		<property name="list" ref="arrayList"/>
+	</bean>	
+	<bean id="scoreSort" class="sample05.ScoreSort">
+		<property name="list" ref="arrayList"/>
+	</bean>
 	
 	
 <!-- 	<bean id="scoreDTO" class="sample05.ScoreDTO">

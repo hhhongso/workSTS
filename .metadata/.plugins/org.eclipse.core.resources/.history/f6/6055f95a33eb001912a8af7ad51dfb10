@@ -1,0 +1,11 @@
+package sample05;
+
+public class ScoreSort implements Score, Comparable<ScoreDTO> {
+
+	@Override
+	public void execute() {
+		compa
+
+	}
+
+}

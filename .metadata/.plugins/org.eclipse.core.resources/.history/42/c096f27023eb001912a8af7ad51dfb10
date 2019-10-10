@@ -1,0 +1,14 @@
+package com.conf;
+
+import java.util.ArrayList;
+import org.springframework.context.annotation.Bean;
+import sample05.ScoreDTO;
+
+public class InstanceScore {
+
+	@Bean(name="list")
+	public ArrayList<ScoreDTO> getArrayList(){
+		return new ArrayList<ScoreDTO>();
+	}
+
+}

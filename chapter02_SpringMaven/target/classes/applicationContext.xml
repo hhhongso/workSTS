@@ -9,8 +9,16 @@
 	<context:component-scan base-package="sample01"/>
 	<context:component-scan base-package="sample02"/>
 	<!-- <context:component-scan base-package="sample03"/> -->
-	<context:component-scan base-package="com.conf"/>
+	
+<!-- sample04 -->
+	<context:component-scan base-package="sample04"/>
+
+	<bean id="fileOutputter" class="sample04.FileOutputter">
+		<property name="filePath" value="C:/Spring/"/>
+		<property name="fileName" value="result.txt"/>
+	</bean>
 	
 <!-- sample05 -->
-	
+	<context:component-scan base-package="com.conf"/>
+	<context:component-scan base-package="sample05"/>
 </beans>

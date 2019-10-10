@@ -1,0 +1,18 @@
+package com.conf;
+
+import java.util.ArrayList;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
+
+import sample05.ScoreDTO;
+
+@Component
+public class InstanceScore {
+
+	@Bean(name="list")
+	public ArrayList<ScoreDTO> getArrayList(){
+		return new ArrayList<ScoreDTO>();
+		//왜 List<> 로 잡으면 안되는지,,, 
+	}
+
+}

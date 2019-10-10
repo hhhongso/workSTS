@@ -1,0 +1,8 @@
+package sample05;
+
+import java.util.List;
+
+public interface Score {
+	public void execute(List<ScoreDTO> list);
+
+}

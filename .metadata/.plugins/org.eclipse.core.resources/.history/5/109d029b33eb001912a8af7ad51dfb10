@@ -1,0 +1,22 @@
+package sample05;
+
+import java.util.ArrayList;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+public class ScoreSort implements Score, Comparable<ScoreDTO> {
+	@Autowired private ArrayList<ScoreDTO> list; 
+	@Autowired private ScoreDTO scoreDTO;
+	@Override
+	public void execute() {
+		compa
+
+	}
+
+	@Override
+	public int compareTo(ScoreDTO o) {
+		if(sc)
+		return 0;
+	}
+
+}

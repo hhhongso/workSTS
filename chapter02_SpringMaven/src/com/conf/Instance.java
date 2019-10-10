@@ -14,13 +14,13 @@ public class Instance {
 	//bean: 메소드를 통해 리턴 값을 생성
 	//configuration: 해당 클래스는 환경설정임을 명시, 환경설정 클래스를 생성하는 것은 아님
 	
-	@Bean(name="scoreImpl")
-	public ScoreImpl getScoreImpl() {
-		return new ScoreImpl();
-	}
+//	@Bean(name="scoreImpl")
+//	public ScoreImpl getScoreImpl() {
+//		return new ScoreImpl();
+//	}
 	
-	@Bean
-	public ScoreDTO getScoreDTO() {
-		return new ScoreDTO();
-	}
+//	@Bean
+//	public ScoreDTO getScoreDTO() {
+//		return new ScoreDTO();
+//	}
 }
