@@ -1,11 +1,11 @@
 package com.conf;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
-import sample04.HelloSpring;
-import sample04.MessageBeanImpl;
 import sample05.ScoreDTO;
 import sample05.ScoreDisp;
 
@@ -14,7 +14,7 @@ public class InstanceScore {
 
 	//sample05
 	@Bean(name="list")
-	public ArrayList<ScoreDTO> getArrayList(){
+	public List<ScoreDTO> getArrayList(){
 		return new ArrayList<ScoreDTO>();
 		//왜 List<> 로 잡으면 안되는지,,, 
 	}

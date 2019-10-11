@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+<!-- sample01 -->
+	<bean id="messageBeanImpl01" class="sample01.MessageBeanImpl">
+		<property name="str" value="Have a good day :)"/>
+	</bean>
+	
+	<bean id="loggingAdvice" class="sample01.LoggingAdvice"></bean>
+	
+	<!-- AOP:before : 메소드가 수행되기 전, 앞 부분에 코드 삽입 -->
+	<!-- AOP는 메소드를 실행할 때 호출 가능 --> 
+	<!-- (..) : 매개변수 자율화. 매개변수가 있든지 없든지 상관없이 ~ -->
+		<aop:config>
+			<aop:pointcut expression="execution(public void sample01.MessageBeanImpl.*PrintBefore(..))" id="methodBefore"/>
+			<aop:aspect ref="loggingAdvice">
+				<aop:before method="beforeTrace()" pointcut-ref="methodBefore"/>
+			</aop:aspect> <!-- 공통모듈이 무엇인지 알려주기-->
+		</aop:config>
+		
+		<aop:config>
+			<aop:pointcut expression="execution(public * *.*.*PrintAfter(..))" id="methodAfter"/>
+			<aop:aspect ref="loggingAdvice">
+				<aop:after method="afterTrace" pointcut-ref="methodAfter"/>
+			</aop:aspect>
+		</aop:config>
+	
+		<aop:config>
+			<aop:pointcut
+				expression="execution(public * *.*.*Print(..))" id="methodAround" />
+			<aop:aspect ref="loggingAdvice">
+				<aop:around method="trace" pointcut-ref="methodAround" />
+			</aop:aspect>
+		</aop:config>
+</beans>

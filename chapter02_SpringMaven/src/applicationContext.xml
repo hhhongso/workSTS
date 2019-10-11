@@ -6,17 +6,12 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
 
-	<context:component-scan base-package="sample01"/>
+<!-- 	<context:component-scan base-package="sample01"/> sample04 랑 동일 이름 클래스 충돌 --> 
 	<context:component-scan base-package="sample02"/>
-	<!-- <context:component-scan base-package="sample03"/> -->
+	 <context:component-scan base-package="sample03"/>
 	
 <!-- sample04 -->
 	<context:component-scan base-package="sample04"/>
-
-	<bean id="fileOutputter" class="sample04.FileOutputter">
-		<property name="filePath" value="C:/Spring/"/>
-		<property name="fileName" value="result.txt"/>
-	</bean>
 	
 <!-- sample05 -->
 	<context:component-scan base-package="com.conf"/>

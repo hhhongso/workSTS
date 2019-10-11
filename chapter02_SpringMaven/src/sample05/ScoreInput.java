@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -15,7 +16,9 @@ import lombok.Setter;
 @Component 
 @Scope("prototype")
 public class ScoreInput implements Score {
-	@Autowired private ArrayList<ScoreDTO> list; 
+	//@Qualifier("id") -> 같은 타입의 객체가 여러개 일 때, id값으로 이를 구분할 수 있도록 하는 어노테이션.  
+	@Qualifier("list")
+	@Autowired private List<ScoreDTO> list; //autoWired 시에는 그 주체와 그를 이용하는 클래스를 모두 Component로 잡아주어야 autowired 적용 가능. 
 	@Autowired private ScoreDTO scoreDTO;
 
 	@Override

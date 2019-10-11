@@ -1,14 +1,17 @@
 package sample05;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ScoreModify implements Score{
-	@Autowired private ArrayList<ScoreDTO> list;
+	@Qualifier("list")
+	@Autowired private List<ScoreDTO> list;
 	
 	@Override
 	public void execute() {
