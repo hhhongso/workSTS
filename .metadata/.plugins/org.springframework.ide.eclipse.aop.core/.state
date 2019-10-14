@@ -18,4 +18,5 @@
 </aspect-definition>
 </aop-project>
 <aop-project name="chapter04"/>
+<aop-project name="chapter05"/>
 </aop-reference-model>

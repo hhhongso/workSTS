@@ -14,7 +14,7 @@
 	<classpathentry kind="lib" path="lib/spring-context-5.0.2.RELEASE.jar"/>
 	<classpathentry kind="lib" path="lib/spring-core-5.0.2.RELEASE.jar"/>
 	<classpathentry kind="lib" path="lib/spring-expression-5.0.2.RELEASE.jar"/>
-	<classpathentry kind="lib" path="lib/spring-jdbc-5.0.2.RELEASE.jar"/>
+	<classpathentry kind="lib" path="lib/spring-jdbc-5.0.2.RELEASE.jar" sourcepath="C:/Users/bitcamp/.m2/repository/org/springframework/spring-jdbc/5.0.2.RELEASE/spring-jdbc-5.0.2.RELEASE-sources.jar"/>
 	<classpathentry kind="lib" path="lib/spring-tx-5.0.2.RELEASE.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

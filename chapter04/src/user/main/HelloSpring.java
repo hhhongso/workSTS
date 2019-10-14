@@ -28,7 +28,7 @@ public class HelloSpring {
 			} else if(choice == 2) { userService= context.getBean("userSelectService", UserService.class);
 			} else if(choice == 3) { userService= context.getBean("userUpdateService", UserService.class);
 			} else if(choice == 4) { userService= context.getBean("userDeleteService", UserService.class);
-			} else if(choice == 0) { System.out.println("종료합니다. ");
+			} else if(choice == 0) { System.out.println("바이바이! ");
 				break;
 			}
 			userService.execute();
