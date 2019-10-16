@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
+  <display-name>chapter06</display-name>
+	
+  <servlet>
+	<servlet-name>dispatcher</servlet-name>
+	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+  	
+	<!-- dispatcher-servlet.xml의 이름을 바꾸거나, 위치를 변경할 때 --> 
+  	<init-param>
+  		<param-name>contextConfigLocation</param-name>
+  		<param-value>/WEB-INF/mvc-config.xml</param-value>
+  	</init-param>
+  </servlet> 
+    
+  <servlet-mapping>
+  	<servlet-name>dispatcher</servlet-name>
+  	<url-pattern>*.do</url-pattern>
+  </servlet-mapping>
+ 
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+</web-app>
+
+<!-- 
+WAC (Web Application Context)
+1. 웹과 상관 없음 
+ - applicationContext.xml (default)
+2. 웹과 상관있음 
+ - servletname-servlet.xml ex) dispatcher-servlet.xml
+  -->
