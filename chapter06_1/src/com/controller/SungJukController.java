@@ -8,19 +8,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.bean.SungJukDTO;
 
-@Controller
-@RequestMapping("/sungJuk/")
+//@Controller
+@RequestMapping("/sungJuk")
 public class SungJukController {
 	
 	@RequestMapping("/input.do")
 	public String input() {
-		return "input";
+		return "/sungJuk/input";
 	}
 	
 	@RequestMapping(value="/result.do", method=RequestMethod.POST)
-	public String result(Model model, @ModelAttribute SungJukDTO sungJukDTO) {
+										//入					出
+	public String result(@ModelAttribute SungJukDTO sungJukDTO, Model model) {
 		sungJukDTO.calc();
 		model.addAttribute("sungJukDTO", sungJukDTO);		
-		return "result";
+		return "/sungJuk/result";
 	}
 }

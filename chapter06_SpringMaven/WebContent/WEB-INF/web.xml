@@ -3,19 +3,20 @@
   <display-name>chapter06_SpringMaven</display-name>
  
   <servlet>
-	<servlet-name>dispatcher</servlet-name>
+	<servlet-name>appServlet</servlet-name>
 	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-  	
-	<!-- dispatcher-servlet.xml의 이름을 바꾸거나, 위치를 변경할 때 --> 
+ 
   	<init-param>
   		<param-name>contextConfigLocation</param-name>
-  		<param-value>/WEB-INF/mvc-config.xml</param-value>
+  		<param-value>
+  			/WEB-INF/spring/servlet-context.xml
+  		</param-value>
   	</init-param>
   </servlet> 
     
   <servlet-mapping>
-  	<servlet-name>dispatcher</servlet-name>
-  	<url-pattern>*.do</url-pattern>
+  	<servlet-name>appServlet</servlet-name>
+  	<url-pattern>/</url-pattern>
   </servlet-mapping>
  
  

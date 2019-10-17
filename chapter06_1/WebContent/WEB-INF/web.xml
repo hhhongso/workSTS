@@ -23,9 +23,11 @@
   	
   	<init-param>
       <param-name>contextConfigLocation</param-name>
-      <param-value>/WEB-INF/mvc-config.xml /WEB-INF/dispatcher-config.xml</param-value>
+      <param-value>
+	      /WEB-INF/mvc-config.xml
+	      /WEB-INF/dispatcher-config.xml
+      </param-value>
     </init-param>  
-  <!--   <load-on-startup>1</load-on-startup> -->
   </servlet>
   
   <servlet-mapping>
@@ -34,20 +36,21 @@
   </servlet-mapping>
 
 
-
+<!-- spring parameter로 넘어오는 값은 xml에서 encoding 처리해주어야 한다. (자바에서 불가)  -->
   <filter>
-        <filter-name>encodingFilter</filter-name>
-        <filter-class>
-            org.springframework.web.filter.CharacterEncodingFilter
+    <filter-name>encodingFilter</filter-name>
+    <filter-class>
+      org.springframework.web.filter.CharacterEncodingFilter
     </filter-class>
     <init-param>
-            <param-name>encoding</param-name>
-            <param-value>UTF-8</param-value>
-        </init-param>
+     	<param-name>encoding</param-name>
+    	<param-value>UTF-8</param-value>
+     </init-param>
   </filter>
+  
   <filter-mapping>
-        <filter-name>encodingFilter</filter-name>
-        <url-pattern>/*</url-pattern>
+     <filter-name>encodingFilter</filter-name>
+     <url-pattern>/*</url-pattern>
   </filter-mapping>
 
   
