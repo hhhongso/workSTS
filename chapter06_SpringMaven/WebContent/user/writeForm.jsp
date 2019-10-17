@@ -35,8 +35,7 @@
 		
 		<tr> 
 			<td colspan="2" align="center">
-				<input type="button" id="btnWriteForm" value="등록">
-				<!-- <button id="btnWriteForm">등록</button> -->
+				<button type="button" id="btnWriteForm">등록</button> <!-- <button/>의 default는 submit -->
 				<input type="reset" id="btnResetForm" value="취소">
 			</td>
 		</tr>
@@ -64,7 +63,7 @@ $('#btnWriteForm').click(function() {
 			//dataType: 받을 데이터가 없으면 제외하여도 무방. 
 			success:function(){
 				console.log("등록 완료~!");
-				//location.href='/chapter06_SpringMaven/main/index.do';
+				location.href='/chapter06_SpringMaven/main/index.do';
 			},
 			error:function(){
 				console.log("실패");

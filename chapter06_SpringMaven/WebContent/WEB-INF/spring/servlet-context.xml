@@ -10,8 +10,26 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 	
 	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<!-- <property name="order" value="0"/> -->
 		<property name="suffix" value=".jsp"/>
 	</bean>
 	
 	<context:component-scan base-package="*.controller"/>
+	
+	<!-- JSON 설정 -->
+	<!-- MappingJackson2JsonView: java 객체를 JSON으로 변환해서 보여주는 view 구현 클래스 -->
+	<bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView">
+		<property name="contentType" value="text/html; charset=UTF-8"/>
+	</bean>
+	
+	<!-- BeanNameViewResolver: 뷰 이름과 동일한 이름을 가진 빈을 찾아서 뷰로 이용하게 해준다. 사용자 정의 view 객체를 사용하는 경우 주로 사용. 
+		하나의 DispatcherServlet은 한 개 이상의 ViewResolver를 설정할 수 있음
+	  ● "order" 프로퍼티를 이용하여 뷰 이름을 검사할 ViewResolver의 순서를 결정 ( ajax를 처리할 resolver의 load 순서를 결정)
+	  ● "order" 프로퍼티의 값이 작을수록 우선 순위가 높으며 우선순위가 높은 ViewResolver가 null을 리턴하면, 다음 우선순위를 갖는 ViewResolver에 뷰을 요청
+	  ● 주의할 점은 InternalResourceViewResolver는 마지막 우선 순위를 갖도록 지정해야 함
+	   => InternalResourceViewResolver는 항상 뷰 이름에 매핑되는 뷰 객체를 리턴하기 때문에 null을 리턴하지 않음. 
+	   	따라서 InternalResourceViewResolver의 우선순위가 높을 경우 우선순위가 낮은 ViewResolver는 사용되지 않게 됨. -->
+	<bean id="beanNameViewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver"> <!-- DTO의 각 값을 list [] 와 매칭 -->
+		<property name="order" value="0"/>
+	</bean> 
 </beans>

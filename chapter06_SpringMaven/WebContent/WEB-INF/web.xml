@@ -2,6 +2,18 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
   <display-name>chapter06_SpringMaven</display-name>
  
+ <!-- ContextLoaderListener가 생성하는 Root WAC : 웹 무관한 빈 등록-->
+ <context-param>
+ 	<param-name>contextConfigLocation</param-name>
+ 	<param-value>/WEB-INF/root-context.xml</param-value> <!-- default: applicationContext.xml -->
+ </context-param>
+ 
+ <listener>
+ 	<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+ </listener>
+ 
+ 
+ <!--DispatcherServlet가 생성하는 WAC : 웹 관련된 빈 등록 -->
   <servlet>
 	<servlet-name>appServlet</servlet-name>
 	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
