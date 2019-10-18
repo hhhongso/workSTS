@@ -9,7 +9,7 @@ public interface UserDAO {
 	public void write(UserDTO userDTO);
 	public List<UserDTO> getUserList();
 	public UserDTO getUser(String id);
-	public void updateUser(Map<String, String> map);
+	public void modifyUser(Map<String, String> map);
 	public int deleteUser(String id);
 	public List<UserDTO> searchUserList(Map<String, String> map);
 }

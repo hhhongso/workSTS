@@ -7,14 +7,13 @@
 <title>Insert title here</title>
 </head>
 <body>
-<table id="listTb" border=1>
-	<tr>
-		<th width="100">이름</th>
-		<th width="100">아이디</th>
-		<th width="100">비밀번호</th>
-	</tr>
-</table>
-<div id="mainImg"></div>
+	<fieldset>
+		<legend>삭제할 아이디 입력:</legend>
+		<input type="text" class="txtDeleteId" placeholder="아이디 입력">
+		<input type="button" class="btnDelete" value="삭제">
+		<input type="reset"class="btnReset"  value="취소">
+	</fieldset>
+	<div class="divDelete"></div>
 </body>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="../js/user.js"></script>

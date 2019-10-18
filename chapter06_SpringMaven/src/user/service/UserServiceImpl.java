@@ -1,6 +1,8 @@
 package user.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,8 +26,37 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void delete(String id) {
-		userDAO.deleteUser(id);
+	public UserDTO getUser(String id) {
+		return userDAO.getUser(id);
 	}
+
+	@Override
+	public int delete(String id) {
+		return userDAO.deleteUser(id);
+	}
+
+	@Override
+	public void modifyUser(UserDTO userDTO) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("name", userDTO.getName());
+		map.put("id", userDTO.getId());
+		map.put("pwd", userDTO.getPwd());
+		userDAO.modifyUser(map);
+		
+	}
+
+	@Override
+	public List<UserDTO> search(Map<String, String> map) {
+		return userDAO.searchUserList(map);
+	}
+
+	@Override
+	public boolean checkId(String id) {
+		boolean isExisted = false;
+		UserDTO userDTO = userDAO.getUser(id);
+		if(userDTO != null) isExisted = true;
+		return isExisted;
+	}
+
 
 }

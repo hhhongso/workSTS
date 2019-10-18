@@ -14,7 +14,7 @@
 		select * from usertable where id = #{id}
 	</select>
 	
-	<update id="updateUser" parameterType="java.util.Map">
+	<update id="modifyUser" parameterType="java.util.Map">
 		update usertable set name=#{name}, pwd=#{pwd} where id = #{id}
 	</update>
 	

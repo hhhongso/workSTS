@@ -1,13 +1,17 @@
 package user.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -23,6 +27,15 @@ public class UserController {
 	@RequestMapping("/user/writeForm")
 	public String writeForm() {
 		return "/user/writeForm";
+	}
+	
+	@RequestMapping("/user/checkId")
+	public ModelAndView checkId(@RequestParam String id){
+		boolean isExisted = userService.checkId(id);
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("isExisted", isExisted);
+		mav.setViewName("jsonView");
+		return mav;
 	}
 	
 	@RequestMapping(value="/user/write", method=RequestMethod.POST)
@@ -52,18 +65,59 @@ public class UserController {
 		return mav;
 	}
 	
-	@RequestMapping("/user/getUser")
-	public void getUser() {
-		
+	
+	@RequestMapping("/user/modifyForm")
+	public String modifyForm() {
+		return "/user/modifyForm";
 	}
 	
-	@RequestMapping("/user/modify")
-	public String modify() {
-		return "/user/modify";
+	@RequestMapping("/user/getUser")
+	public ModelAndView getUser(@RequestParam String id, ModelAndView mav) {
+		UserDTO userDTO = userService.getUser(id);
+	//	ModelAndView mav = new ModelAndView();
+		mav.addObject("userDTO", userDTO);
+		mav.setViewName("jsonView");
+		return mav;		
+	}
+	
+	@RequestMapping("/user/modifyUser")
+	@ResponseBody
+	public void modifyUser(@ModelAttribute UserDTO userDTO) {
+		userService.modifyUser(userDTO);
 	}
 	
 	@RequestMapping("/user/delete")
-	public void delete(String id) {
-		userService.delete(id);
+	public String delete() {
+		return "/user/delete";
+	}
+	
+	@RequestMapping("/user/deleteUser")
+	@ResponseBody
+	public ModelAndView deleteUser(String id) {
+		int cnt = userService.delete(id);
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("cnt", cnt);
+		mav.setViewName("jsonView");
+		return mav;
+		
+	}
+	
+	@RequestMapping("/user/search")
+	public String search() {
+		return "/user/search";
+	}
+	
+	@RequestMapping("/user/searchUser")
+	public ModelAndView searchUser(@RequestParam String searchOp, @RequestParam String searchVal) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("key", searchOp);
+		map.put("value", searchVal);
+		List<UserDTO> list = userService.search(map);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("list", list);
+		mav.setViewName("jsonView");
+		return mav;	
+		
 	}
 }
