@@ -1,15 +1,2 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<typeInfoHistroy>
-<typeInfo handle="=chapter01_SpringMaven/src&lt;sample05{Score.java[Score" modifiers="513" timestamp="1570438068818"/>
-<typeInfo handle="=chapter02/src&lt;sample01{MessageBean.java[MessageBean" modifiers="513" timestamp="1570502818437"/>
-<typeInfo handle="=chapter02/src&lt;sample02{Calc.java[Calc" modifiers="513" timestamp="1570506620257"/>
-<typeInfo handle="=chapter02/src&lt;sample03{Score.java[Score" modifiers="513" timestamp="1570513021372"/>
-<typeInfo handle="=chapter02/src&lt;sample04{MessageBean.java[MessageBean" modifiers="513" timestamp="1570668242591"/>
-<typeInfo handle="=chapter02/src&lt;sample04{Outputter.java[Outputter" modifiers="513" timestamp="1570668290104"/>
-<typeInfo handle="=chapter02_SpringMaven/src&lt;sample05{Score.java[Score" modifiers="513" timestamp="1570677629339"/>
-<typeInfo handle="=chapter03/src&lt;sample01{MessageBean.java[MessageBean" modifiers="513" timestamp="1570771839624"/>
-<typeInfo handle="=chapter04/src&lt;user.dao{UserDAO.java[UserDAO" modifiers="513" timestamp="1571024030162"/>
-<typeInfo handle="=chapter05/src&lt;user.service{UserService.java[UserService" modifiers="513" timestamp="1570781004637"/>
-<typeInfo handle="=chapter06_SpringMaven/src&lt;user.dao{UserDAO.java[UserDAO" modifiers="513" timestamp="1571294062027"/>
-<typeInfo handle="=chapter06_SpringMaven/src&lt;user.service{UserService.java[UserService" modifiers="513" timestamp="1571295702348"/>
-</typeInfoHistroy>
+<typeInfoHistroy/>
