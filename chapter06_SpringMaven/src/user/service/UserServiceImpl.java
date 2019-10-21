@@ -52,10 +52,10 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public boolean checkId(String id) {
-		boolean isExisted = false;
+		boolean isDup = false;
 		UserDTO userDTO = userDAO.getUser(id);
-		if(userDTO != null) isExisted = true;
-		return isExisted;
+		if(userDTO != null) isDup = true;
+		return isDup;
 	}
 
 

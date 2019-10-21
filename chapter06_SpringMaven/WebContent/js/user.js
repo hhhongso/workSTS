@@ -1,16 +1,17 @@
-
-//writeForm.js
+//writeForm.jsp ========================================================================================================================
 var isExisted;
+	//.focusout()
 $('.txtId').blur(function(){
 	$('div[class^=div]').empty();
-	$.ajax({
+	if($('.txtId').val() =='') $('.divId').append("아이디를 입력해주세요").css("color", "brown").css("font-size", "8pt").css("font-weight", "bold");
+	else 
+	  $.ajax({
 		type: 'POST',
 		url:'/chapter06_SpringMaven/user/checkId',
 		data:{"id": $('.txtId').val() },
 		dataType:'json', 
 		success:function(data){
-			console.log(data.isExisted);
-			if(data.isExisted){
+			if(data.isDup){
 				$('.divId').append("중복된 아이디입니다.").css("color", "red").css("font-size", "8pt").css("font-weight", "bold");
 				isExisted = true; 				
 			} else {
@@ -56,7 +57,7 @@ $('#btnWriteForm').click(function() {
 
 });
 
-//list.jsp
+//list.jsp ========================================================================================================================
 $().ready(function(){
 
 	$.ajax({
@@ -92,7 +93,53 @@ $().ready(function(){
 	})
 });
 
-//modifyForm.jsp
+//search ========================================================================================================================
+$('.btnSearchList').click(function(){	
+	$('#listTb tr:gt(0)').empty();
+	$('.divSearchList').empty();
+	//if($(#searchOp option:selected).val() == '') 검색옵션을 선택해주세요. return false; 
+	if($('.txtSearch').val() == '') $('.divSearchList').text('검색어를 입력하세요.').css('color','red').css('font-size', '7pt');
+	else 
+		$.ajax({
+			//headers: {'accept': 'application/json', 'content-type': 'application/json'},
+			type:'post',
+			url:'/chapter06_SpringMaven/user/searchUser',
+			data: JSON.stringify({'key': $('.searchOp option:selected').val() , 'value': $('.txtSearch').val()}), //$('#searchForm').serialize(),
+			contentType: 'application/json;charset=UTF-8',
+			dataType: 'json',
+			success:function(data){
+				console.log("성공");				
+				if(data.list.length == 0) {
+					$('.divSearchList').text('검색 결과가 없습니다.').css('color','red').css('font-size', '7pt');
+					return;
+				}
+				$.each(data.list, function(index, value){
+					$('<tr/>').append($('<td/>', {
+						align: 'center', 
+						text: value.name
+					})).append($('<td/>', {
+						align: 'center', 
+						text: value.id
+					})).append($('<td/>', {
+						align: 'center', 
+						text: value.pwd
+					})).appendTo('#listTb');
+					
+				})
+			
+			},
+			error:function(){
+				console.log("실패");
+			}
+		});
+});
+
+$('.btnReset').click(function(){
+	//$('.txtSearch').val('');
+	$('div[class^=div]').empty();
+});
+
+//modifyForm.jsp ========================================================================================================================
 $().ready(function(){
 	$('#modifyForm').hide();
 	
@@ -125,8 +172,7 @@ $().ready(function(){
 	});
 	
 	$('.btnReset').click(function(){
-		$('.txtSearchId').val('');
-		$('.divSearch').empty();
+	//	$('.txtSearchId').val('');
 	});
 	
 	
@@ -152,7 +198,7 @@ $().ready(function(){
 	});
 });
 
-//delete.jsp
+//delete.jsp ========================================================================================================================
 $('.btnDelete').click(function(){
 	$('.divDelete').empty();
 	if($('.txtDeleteId').val() == '') $('.divDelete').text('삭제할 아이디를 입력하세요.').css('color','red').css('font-size', '7pt');
@@ -163,71 +209,24 @@ $('.btnDelete').click(function(){
 			data: {'id' : $('.txtDeleteId').val()}, 
 			dataType: 'json',
 			success:function(data){
+				console.log(JSON.stringify(data));
+				console.log(data);
 				if(data.cnt == 0) {
 					$('.divDelete').text('삭제할 아이디 정보가 없습니다.').css('color','red').css('font-size', '7pt');
 					return;	
 				}
 				
-				location.href='/chapter06_SpringMaven/main/index.do';
+				location.href='/chapter06_SpringMaven/user/list';
 				
 			},
-			error:function(){
-				console.log("실패");
+			error:function(err){
+				console.log("실패"+err);
 			}
 		});
 });
 
 $('.btnReset').click(function(){
-	$('.txtDeleteId').val('');
-	$('.divDelete').empty();
+//	$('.txtDeleteId').val('');
 });
 
-//search.jsp
-$().ready(function(){
-	$('#divSearchTb').hide();	
-});
 
-$('.btnSearchList').click(function(){
-	$('#divSearchTb table').empty();
-	$('.divSearchList').empty();
-	if($('.txtSearch').val() == '') $('.divSearchList').text('검색어를 입력하세요.').css('color','red').css('font-size', '7pt');
-	else 
-		$.ajax({
-			type:'post',
-			url:'/chapter06_SpringMaven/user/searchUser',
-			data: $('#searchForm').serialize(),
-			dataType: 'json',
-			success:function(data){
-				console.log("성공");				
-				if(data.list.length == 0) {
-					$('.divSearchList').text('검색 결과가 없습니다.').css('color','red').css('font-size', '7pt');
-					return;
-				}
-				
-				$('<tr/>').append('<th>이름</th>').append('<th>아이디</th>').append('<th>비밀번호</th>').appendTo('#searchTb');
-				$.each(data.list, function(index, value){
-					$('<tr/>').append($('<td/>', {
-						align: 'center', 
-						text: value.name
-					})).append($('<td/>', {
-						align: 'center', 
-						text: value.id
-					})).append($('<td/>', {
-						align: 'center', 
-						text: value.pwd
-					})).appendTo('#searchTb');
-					
-				})
-				$('#divSearchTb').show();
-				
-			},
-			error:function(){
-				console.log("실패");
-			}
-		});
-});
-
-$('.btnReset').click(function(){
-	$('.txtSearch').val('');
-	$('.divSearch').empty();
-});

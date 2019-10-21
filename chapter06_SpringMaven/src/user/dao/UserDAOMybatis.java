@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import user.bean.UserDTO;
 
-@Transactional() //트랜잭션을 적용하고자 하는 서비스 클래스.
+@Transactional //트랜잭션을 적용하고자 하는 서비스 클래스.
 @Repository("userDAO")
 public class UserDAOMybatis implements UserDAO {
 	@Autowired 

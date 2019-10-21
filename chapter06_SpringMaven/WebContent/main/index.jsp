@@ -24,6 +24,5 @@ a.mainA:hover{
 <a class="mainA" href="../user/list">출력</a> <br>
 <a class="mainA" href="../user/modifyForm">수정</a> <br>
 <a class="mainA" href="../user/delete">삭제</a> <br>
-<a class="mainA" href="../user/search">검색</a> <br>
 </body>
 </html>

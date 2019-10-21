@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import net.sf.json.JSONArray;
 import user.bean.UserDTO;
 import user.service.UserService;
 
@@ -31,10 +32,14 @@ public class UserController {
 	
 	@RequestMapping("/user/checkId")
 	public ModelAndView checkId(@RequestParam String id){
-		boolean isExisted = userService.checkId(id);
+		boolean isDup = userService.checkId(id);
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("isExisted", isExisted);
+		mav.addObject("isDup", isDup);
 		mav.setViewName("jsonView");
+		
+		// dataType: 'text 일 시 
+		// if(userDTO != null) return "isDup";
+		// else  return "isntDup"; 
 		return mav;
 	}
 	
@@ -55,7 +60,8 @@ public class UserController {
 		return "/user/list";
 	}
 	
-	@RequestMapping(value="/user/getList", method=RequestMethod.POST)
+/*	1. bean 객체를 통해 list -> json으로 변환
+ 	@RequestMapping(value="/user/getList", method=RequestMethod.POST)
 	public ModelAndView getList() {
 		List<UserDTO> list = userService.getList();
 		
@@ -64,7 +70,19 @@ public class UserController {
 		mav.setViewName("jsonView");
 		return mav;
 	}
-	
+*/	
+	//2. 클래스 객체를 통해 list -> json으로 변환
+	@RequestMapping(value="/user/getList", method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> getList() {
+		List<UserDTO> list = userService.getList();
+		
+		JSONArray jsonArray = JSONArray.fromObject(list); //list를 json으로 바꾸는 메소드. [{}, {}, {}] 형태로 변환.
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", jsonArray);
+		
+		return map;
+	}
 	
 	@RequestMapping("/user/modifyForm")
 	public String modifyForm() {
@@ -93,9 +111,10 @@ public class UserController {
 	
 	@RequestMapping("/user/deleteUser")
 	@ResponseBody
-	public ModelAndView deleteUser(String id) {
+	public ModelAndView deleteUser(String id, ModelAndView mav) {
 		int cnt = userService.delete(id);
-		ModelAndView mav = new ModelAndView();
+		//ModelAndView mav = new ModelAndView();
+		//ModelAndView를 파라미터로 받았을 시, spring이 자동으로 인젝션 하면서, model, modelMap 등의 속성도 함께 인젝션된다. 
 		mav.addObject("cnt", cnt);
 		mav.setViewName("jsonView");
 		return mav;
@@ -108,16 +127,14 @@ public class UserController {
 	}
 	
 	@RequestMapping("/user/searchUser")
-	public ModelAndView searchUser(@RequestParam String searchOp, @RequestParam String searchVal) {
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("key", searchOp);
-		map.put("value", searchVal);
+	public ModelAndView searchUser(@RequestBody Map<String, String> map) { //@RequestParam String searchOp, @RequestParam String searchVal
 		List<UserDTO> list = userService.search(map);
 		
-		ModelAndView mav = new ModelAndView();
+		ModelAndView mav = new ModelAndView(); //Model(java) and View(view object)
 		mav.addObject("list", list);
 		mav.setViewName("jsonView");
 		return mav;	
 		
 	}
+
 }

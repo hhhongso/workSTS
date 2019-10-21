@@ -1,0 +1,25 @@
+@charset "UTF-8";
+
+header{
+	text-align:center;
+}
+
+nav{
+	display: inline-block;
+	float: left;
+	margin: 10px;
+	width: 300px;
+}
+
+section {
+	border: 1px solid black;
+	background-color: #ffdeb3;
+	width: 700px;
+	height:auto;
+	margin: 10px;
+	display: inline-block;
+}
+
+footer{
+	border: 1px solid black;
+}

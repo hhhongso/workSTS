@@ -34,7 +34,31 @@
 		<property name="order" value="0"/>
 	</bean> 
 	
-	<mvc:annotation-driven/>
-	<mvc:resources mapping="/image/*" location="/image/"/>
+	<!-- / 로 표기된 것 중, /image폴더의 하위폴더(/**)까지 매핑한다. -->
+	<mvc:annotation-driven/>  <!-- mvc resources 및 default bean 을 생성, 연결, 활성화시키는 역할. with @EnableWebMvc -->
+	<mvc:resources mapping="/image/**" location="/image/"/>
 	<mvc:resources mapping="/js/**" location="/js/"/>
+	
+	<!-- 객체 설정: 넘어오는 메세지(ex) map) 를 json형태로 맞추어 준다.  -->
+	<!-- mvc:annotation이 아래 bean을 default로 가지고 있음. bean 생성 안해줘도 됨. 
+	 
+	<mvc:annotation-driven>
+		<mvc:message-converters>
+			<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
+		</mvc:message-converters>
+	</mvc:annotation-driven> 
+	MessageConverter에는 몇 가지 종류가 있다.
+ 	 - ByteArrayHttpMessageConverter
+	 - StringHttpMessageConverter
+	 - FormHttpMessageConverter
+	 - SourceHttpMessageConverter
+	 - Jaxb2RootElementHttpMessageConverter
+	 - MarshallingHttpMessageConverter
+	 - MappingJackson2HttpMessageConverter
+	
+	자세한 내용은
+	https://docs.spring.io/spring/docs/4.3.0.RC2/spring-framework-reference/htmlsingle/#mvc-config-enable
+	
+	-->
+
 </beans>
