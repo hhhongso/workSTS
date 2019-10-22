@@ -1,31 +1,38 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
- <form name = "writeForm" method = "post" action = "/miniProject/member/write.do">
+ <form id="writeForm">
   <h2> 회원가입 </h2>
   <table border = 3 cellspacing = "2" cellpadding = "2">
 	  <tr>
 	   <th width = 120> 이름  </th>
-	   <td> <input type = "text" id = "irum" name = "name" size = 20 placeholder = "이름 입력"> </td>
+	   <td><input type = "text" name="name" class="writeName" size = 20 placeholder = "이름 입력">
+	   		<div class="divName"></div>
+	   </td>
 	  </tr>
 	  
 	  <tr>
 	   <th> 아이디 </th>
 	   <td> 
-	   	<input type = "text" name = "id" size = 25 placeholder = "아이디 입력"> 
-	   	<input type = "button"  value = "중복체크" onclick = "checkId();"> 
-	   	<input type = "hidden" name = "sw" value = "">
+	   	<input type = "text" name = "id" class="writeId" size = 25 placeholder = "아이디 입력"> 
+<!-- 	   	<input type = "button"  value = "중복체크" onclick = "checkId();"> --> 
+	   	<div class="divId"></div>
+
 	   </td>
 	  </tr>
 	  
 	  <tr>
 	   <th> 비밀번호  </th>
-	   <td> <input type = "password" name = "pwd" size = 30> </td>
+	   <td> <input type = "password" name = "pwd" class="writePwd" size = 30> 
+	   		<div class="divPwd"></div>
+	   </td>
 	  </tr>
 	  
 	  <tr>
 	   <th> 비밀번호 확인  </th>
-	   <td> <input type = "password" name = "repwd" size = 30> </td>
+	   <td> <input type = "password" name = "repwd" class="writeRepwd" size = 30> 
+	   		<div class="divRepwd"></div>
+	   </td>
 	  </tr>
 	  
 	  <tr>
@@ -67,7 +74,7 @@
 	   <th> 주소  </th>
 	   <td> 
 	    <input type = "text" id = "daum_zipcode" name = "zipcode" size = 5 readonly> 
-	    <input type = "button" value = "우편번호검색" onclick = "checkPost()"> <br>
+	    <input type = "button" value = "우편번호검색" class="btnCheckPostForm"> <br>
 	    <input type = "text" id = "daum_addr1" name = "addr1" size = 40 placeholder = "주소 " readonly><br>
 	    <input type = "text" id = "daum_addr2" name = "addr2" size = 40 placeholder = "상세 주소 ">    
 	   </td>   
@@ -76,10 +83,12 @@
 	  <tr>
 	   
 	   <td colspan = 2 align = "center"> 
-	    <input type = "button" name ="sign" value = "회원가입" onclick = "checkWrite()">
-	    <input type = "reset" value = "다시작성">     
+	    <input type = "button" value = "회원가입" class="btnWrite">
+	    <input type = "reset" value = "다시작성" class="resetWrite">     
 	   </td>   
 	  </tr>    
   </table>
  </form>
-<script src = "../js/member.js" type = "text/javascript"> </script>
+ 
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src = "../resources/js/member.js" type = "text/javascript"> </script>

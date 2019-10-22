@@ -15,11 +15,11 @@ th, td, select {
 
 </style>
 
-	<form name="" method="post" action="/miniProject/member/checkPost.do">
-		<table border=3 width=100%>
+	<form id="checkPostForm">
+		<table id="zipcodeTb" border=3 width=100%>
 			<tr>
 				<th>시도</th>
-				<td><select name="sido">
+				<td><select name="sido" class="sido">
 						<option>시도선택</option>
 						<option value="서울">서울</option>
 						<option value="인천">인천</option>
@@ -41,42 +41,22 @@ th, td, select {
 				</select></td>
 
 				<th>시군구</th>
-				<td><input type="text" name="sigungu" size=10></td>
+				<td><input type="text" name="sigungu" class="sigungu" size=10></td>
 			</tr>
 
 			<tr>
 				<th>도로명</th>
-				<td colspan=3><input type="text" name="roadname" size=20>
-					<input type="submit" value="검색"></td>
+				<td colspan=3><input type="text" name="roadname" class="roadname" size=20>
+					<input type="button" value="검색" class="btnCheckPost"></td>
 			</tr>
 
 			<tr>
 				<th>우편번호</th>
 				<td colspan=3 align="center">주소</td>
 			</tr>
-			
-		<c:if test="${list !=null }">
-			<c:forEach var="zipcodeDTO" items="${list }">
-				<c:set var="address" value=
-				"${zipcodeDTO.sido
-				} ${zipcodeDTO.sigungu
-				} ${zipcodeDTO.yubmyundong
-				} ${zipcodeDTO.ri
-				} ${zipcodeDTO.roadname
-				} ${zipcodeDTO.buildingname}"/>
-				<tr>
-					<td align ="center"> 
-					<c:if test="${zipcodeDTO.zipcode.length()==4}">0${zipcodeDTO.zipcode}</c:if>
-					<c:if test="${zipcodeDTO.zipcode.length()!=4}">${zipcodeDTO.zipcode}</c:if>
-					</td>
-					<td colspan = 3> 
-					<a id="addressA" href = "#" onclick ="checkPostClose('${zipcodeDTO.zipcode}', '${address}')"> 
-					 ${address }</a></td>
-				</tr> 
-			</c:forEach>
-		</c:if>
-				
+			<tbody class="zipcodeTbody"></tbody>			
 		</table>
 	</form>
 
-<script src = "../js/member.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src = "../resources/js/member.js" type = "text/javascript"> </script>

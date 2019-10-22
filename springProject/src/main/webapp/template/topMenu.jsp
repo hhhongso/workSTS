@@ -12,12 +12,12 @@ a:hover{
 }
 </style>
 <c:if test="${memId != null }">
-	<a href="/miniProject/board/boardWriteForm.do">게시판 글쓰기</a> &emsp;
-	<a href="/miniProject/imageboard/imageboardList.do?pg=1">이미지(상품) 목록보기</a> &emsp;
+	<a href="/springProject/board/boardWriteForm">게시판 글쓰기</a> &emsp;
+	<a href="/springProject/imageboard/imageboardList?pg=1">이미지(상품) 목록보기</a> &emsp;
 </c:if>
 
 <c:if test="${memId == 'admin' }">
-	<a href="/miniProject/imageboard/imageboardWriteForm.do">이미지 등록</a> &emsp;
+	<a href="/springProject/imageboard/imageboardWriteForm">이미지 등록</a> &emsp;
 </c:if>
 
-<a href="/miniProject/board/boardList.do?pg=1">게시판 글목록</a>
+<a href="/springProject/board/boardList?pg=1">게시판 글목록</a>

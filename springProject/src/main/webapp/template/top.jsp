@@ -2,5 +2,5 @@
     pageEncoding="UTF-8"%>
 
 <img src="../image/jordi.png" style="width:80px; height:80px; cursor:pointer;" 
-onclick="location.href='/miniProject/main/index.do'">
+onclick="location.href='/springProject/main/index'">
 <h1>MVC를 이용한 미니 프로젝트 </h1>

@@ -12,12 +12,12 @@ nav{
 }
 
 section {
+	display: inline-block;
 	border: 1px solid black;
 	background-color: #ffdeb3;
 	width: 700px;
 	height:auto;
-	margin: 10px;
-	display: inline-block;
+	
 }
 
 footer{

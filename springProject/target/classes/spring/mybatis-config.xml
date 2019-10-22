@@ -3,5 +3,6 @@
 <configuration>
 	<typeAliases>
 		<typeAlias type="member.bean.MemberDTO" alias="memberDTO"/>
+		<typeAlias type="member.bean.ZipcodeDTO" alias="zipcodeDTO"/>
 	</typeAliases>
 </configuration>
