@@ -96,7 +96,7 @@ $('.btnCheckPostForm').click(function() {
 $('.btnCheckPost').click(function() {
 	if($('.sido').val() == '시도선택' || $('.roadname').val() == '') alert("주소를 입력하세요. ");
 	else {		
-		$('.zipcodeTbody').empty();
+		$('.zipcodeTbody').empty(); //$('.zipcodeTb tr:gt(2)').empty();
 		var post = {
 				'sido' : $('.sido option:selected').val(),
 				'sigungu' : $('.sigungu').val(),
@@ -117,16 +117,30 @@ $('.btnCheckPost').click(function() {
 					var address = value.sido + ' ' + value.sigungu + ' '
 					+ value.yubmyundong + ' ' + value.ri + ' '
 					+ value.roadname + ' ' + value.buildingname;
+					
+					address = address.replace(/null/g, ''); //g: global
 					$('<tr/>').append($('<td/>', {
 						align : 'center',
 						text : value.zipcode
 					})).append($('<td/>', {
 						colspan : 3
-					}).append($('<a/>', {
-						'class' : 'address',
-						href : '#',
-						text : address
+						}).append($('<a/>', {
+							'class' : 'address',
+							href : '#',
+							text : address
 					}))).appendTo('.zipcodeTbody');
+				}); // $.each()
+				
+				$('a').on('click', $(this), function(){
+					alert($(this).prop('tagName'));
+					alert($(this).text());
+					alert($(this).parent().prop('tagName'));
+					alert($(this).parent().prev().text());
+					
+					$('#daum_zipcode', opener.document).val($(this).parent().prev().text());
+					$('#daum_addr1', opener.document).val($(this).text());
+					window.close();
+					
 				});
 				
 			},
@@ -145,6 +159,7 @@ $('.btnCheckPost').click(function() {
  * opener.parent.daum_addr2.value.focus(); })
  */
 
+/*
 $('.zipcodeTbody').on({
 	click : function() {
 		window.close();
@@ -153,7 +168,7 @@ $('.zipcodeTbody').on({
 		opener.parent.daum_addr2.focus();
 	}
 }, '.address');
-
+*/
 $('.btnLogin').click(
 		function() {
 			$('div[class^=div]').empty();

@@ -73,12 +73,13 @@ public class MemberController {
 	@RequestMapping("/checkPost") //serialize() 하여 데이터 보낼 시, @RequestParam Map 으로도 가능. 단, JSON 형식으로 데이터를 보낸다면 반드시 @requestbody 를 통해 받아야 한다.
 	public ModelAndView checkPost(@RequestBody Map<String, Object> map) {   
 		List<ZipcodeDTO> list = memberService.checkPost(map);
+		/*
 		for (ZipcodeDTO zipcodeDTO : list) {
 			zipcodeDTO.setSigungu(zipcodeDTO.getSigungu() == null ? "" : zipcodeDTO.getSigungu()); 
 			zipcodeDTO.setRi(zipcodeDTO.getRi() == null ? "" : zipcodeDTO.getRi()); 
 			zipcodeDTO.setBuildingname(zipcodeDTO.getBuildingname() == null ? "" : zipcodeDTO.getBuildingname());
 						
-		}
+		}*/
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("list", list);
 		mav.setViewName("jsonView");

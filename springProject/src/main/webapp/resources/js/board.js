@@ -1,8 +1,82 @@
-function checkBoard(){
-	if(document.getElementById("subject").value=="") alert("제목을 입력해주세요.");
-	else if(document.getElementById("content").value=="") alert("내용을 입력해주세요.");
-	else document.forms[0].submit();
-}
+$('.btnBoardWrite').click(function(){
+	console.log('.');
+	$('div[class^=div]').empty();
+	if($('.txtSubject').val() == '') 
+		$('.divSubject').text('제목을 입력해주세요. ').css('color', 'red').css('font-size', '8pt');
+	else if($('.txtContent').val() == '')
+		$('.divContent').text('내용을 입력해주세요. ').css('color', 'red').css('font-size', '8pt');
+	else $('form[name=boardWriteForm]').submit();
+});
+
+$().ready(function(){
+	$.ajax({
+		url:'../board/getBoardList',
+		data: {'page': 1},
+		dataType:'json',
+		success: function(data){
+			console.log(data.list);
+			$.each(data.list, function(index, value){
+				$('<tr/>').append($('<td/>', {
+					text:value.seq
+				})).append($('<td/>').append($('<a/>', {
+					href: '#', 
+					text:value.subject
+				}))).append($('<td/>', {
+					text:value.id
+				})).append($('<td/>', {
+					text:value.logtime
+				})).append($('<td/>', {
+					text:value.hit
+				})).appendTo($('.blTbody'));
+			}); //$.each - data.list
+			
+			$('.divBpg').append(data.boardPaging.pagingHTML).css('cursor', 'pointer');
+					
+		},
+		error: function(err){
+			console.log(err);
+		}
+		
+	});
+	
+	
+
+	$('.divBpg').on('click', $('.divBpg > a#paging'), function(){
+
+		alert($('.divBpg > a#paging:hover').attr('class'));	
+
+		$.ajax({
+			url:'../board/getBoardList',
+			data: {'page': $('.divBpg > a#paging:hover').text()},
+			dataType:'json',
+			success: function(data){
+				$('.divBpg').empty();
+				$('.blTbody').empty();
+				console.log(data.list);
+				$.each(data.list, function(index, value){
+					$('<tr/>').append($('<td/>', {
+						text:value.seq
+					})).append($('<td/>').append($('<a/>', {
+						href: '#', 
+						text:value.subject
+					}))).append($('<td/>', {
+						text:value.id
+					})).append($('<td/>', {
+						text:value.logtime
+					})).append($('<td/>', {
+						text:value.hit
+					})).appendTo($('.blTbody'));
+				}); //$.each - data.list
+				
+				$('.divBpg').append(data.boardPaging.pagingHTML).css('cursor', 'pointer');
+			},
+			error: function(err){
+				console.log(err);
+			}
+		});
+	});
+});
+
 
 
 function isLogin(id, seq, pg){
