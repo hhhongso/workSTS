@@ -10,8 +10,8 @@ th, td, select {
 	font-size: 8pt;
 }
 
-#addressA:link, #addressA:visited, #addressA:active {color: black; text-decoration: none;}
-#addressA:hover {color: orange; text-decoration:underline;}
+.address:link, .address:visited, .address:active {color: black; text-decoration: none;}
+.address:hover {color: orange; text-decoration:underline;}
 
 </style>
 

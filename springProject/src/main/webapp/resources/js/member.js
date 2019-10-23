@@ -1,8 +1,9 @@
-var ischecked = false;
 
 $('.btnWriteForm').click(function() {
 	location.href = '/springProject/member/writeForm';
 });
+
+var ischecked = false;
 
 $('.writeId').blur(
 		function() {
@@ -22,6 +23,7 @@ $('.writeId').blur(
 							$('.divId').text("사용 가능한 아이디 입니다.").css('color',
 									'blue').css('font-size', '8pt');
 							ischecked = false;
+							//$('.cwriteid').val($('.writeId').val());
 						} else {
 							$('.divId').text("중복된 아이디 입니다.")
 									.css('color', 'red')
@@ -34,6 +36,7 @@ $('.writeId').blur(
 					}
 				});
 		});
+
 /*
 $('input[class^=write]').blur(function() {
 			$('div[class^=div]').empty();
@@ -41,11 +44,13 @@ $('input[class^=write]').blur(function() {
 				console.log(this.nextElementSibling);
 				$(this.nextElementSibling).text("필수 입력칸입니다.").css('color',
 						'red').css('font-size', '8pt');
-
-			}
+			} else if (ischecked == true) {
+				$('.divId').text("중복체크하세요.").css('color', 'red').css(
+						'font-size', '8pt');
+			} 
 		});
-*/
 
+*/
 
 
 $('.btnWrite').click(
@@ -83,53 +88,55 @@ $('.btnWrite').click(
 		});
 
 
-$('.btnCheckPostForm').click(
-		function() {
-			window.open("/springProject/member/checkPostForm", "",
-					"width=500, height=500 left=1200, top=500 scrollbars=yes");
-		});
+$('.btnCheckPostForm').click(function() {
+	window.open("/springProject/member/checkPostForm", "",
+			"width=500, height=500 left=1200, top=500 scrollbars=yes");
+});
 
-$('.btnCheckPost').click(
-		function() {
-			var post = {
+$('.btnCheckPost').click(function() {
+	if($('.sido').val() == '시도선택' || $('.roadname').val() == '') alert("주소를 입력하세요. ");
+	else {		
+		$('.zipcodeTbody').empty();
+		var post = {
 				'sido' : $('.sido option:selected').val(),
 				'sigungu' : $('.sigungu').val(),
 				'roadname' : $('.roadname').val()
-			};
-			$.ajax({
-				type : 'post',
-				url : '/springProject/member/checkPost',
-				data : JSON.stringify(post),
-				dataType : 'json',
-				contentType : 'application/json;charset=UTF-8',
-				success : function(data) {
-					$.each(data.list, function(index, value) {
-						if (value.zipcode.length == 4)
-							value.zipcode = '0' + value.zipcode;
-						else
-							value.zipcode = value.zipcode;
-						var address = value.sido + ' ' + value.sigungu + ' '
-								+ value.yubmyundong + ' ' + value.ri + ' '
-								+ value.roadname + ' ' + value.buildingname;
-						$('<tr/>').append($('<td/>', {
-							align : 'center',
-							text : value.zipcode
-						})).append($('<td/>', {
-							colspan : 3
-						}).append($('<a/>', {
-							'class' : 'address',
-							href : '#',
-							text : address
-						}))).appendTo('.zipcodeTbody');
-					});
-
-				},
-				error : function(err) {
-					// console.log(err);
-					console.log('실패');
-				}
-			});
+		};
+		$.ajax({
+			type : 'post',
+			url : '/springProject/member/checkPost',
+			data : JSON.stringify(post), //JSON.stringify($('#checkPostForm').serialize()) 이 안되는 이유? serialize() 한 값은 json타입이 아니니까. 
+			dataType : 'json',
+			contentType : 'application/json;charset=UTF-8',
+			success : function(data) {
+				$.each(data.list, function(index, value) {
+					if (value.zipcode.length == 4)
+						value.zipcode = '0' + value.zipcode;
+					else
+						value.zipcode = value.zipcode;
+					var address = value.sido + ' ' + value.sigungu + ' '
+					+ value.yubmyundong + ' ' + value.ri + ' '
+					+ value.roadname + ' ' + value.buildingname;
+					$('<tr/>').append($('<td/>', {
+						align : 'center',
+						text : value.zipcode
+					})).append($('<td/>', {
+						colspan : 3
+					}).append($('<a/>', {
+						'class' : 'address',
+						href : '#',
+						text : address
+					}))).appendTo('.zipcodeTbody');
+				});
+				
+			},
+			error : function(err) {
+				console.log(err);
+			
+			}
 		});
+	}
+});
 
 /*
  * $('.zipcodeTbody').on('click', $('.address'), function(){ console.log("w");
@@ -190,6 +197,20 @@ $('.btnLogin').click(
 
 		});
 
+
+$('.btnLogout').click(function() {
+	$.ajax({
+		type : 'post',
+		url : '/springProject/member/logout',
+		success : function() {
+			//location.href = '../main/index';
+		},
+		error : function(err) {
+		}
+	});
+});
+
+
 function genderCheck(gender) {
 	let radioArr = document.querySelectorAll(".radio");
 	radioArr[gender].checked = true;
@@ -225,15 +246,3 @@ function checkModify() {
 		document.modifyForm.submit();
 	}
 }
-
-$('.btnLogout').click(function() {
-	$.ajax({
-		type : 'post',
-		url : '/springProject/member/logout',
-		success : function() {
-			location.href = '../main/index';
-		},
-		error : function(err) {
-		}
-	});
-});

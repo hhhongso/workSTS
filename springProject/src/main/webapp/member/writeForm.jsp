@@ -15,7 +15,8 @@
 	   <th> 아이디 </th>
 	   <td> 
 	   	<input type = "text" name = "id" class="writeId" size = 25 placeholder = "아이디 입력"> 
-<!-- 	   	<input type = "button"  value = "중복체크" onclick = "checkId();"> --> 
+<!-- 	<input type = "hidden" name = "cid" class="cwriteId" > 
+	   	<input type = "button"  value = "중복체크" onclick = "checkId();"> --> 
 	   	<div class="divId"></div>
 
 	   </td>
@@ -84,7 +85,8 @@
 	   
 	   <td colspan = 2 align = "center"> 
 	    <input type = "button" value = "회원가입" class="btnWrite">
-	    <input type = "reset" value = "다시작성" class="resetWrite">     
+	    <input type = "reset" value = "다시작성" class="resetWrite">  
+	    <!-- <input type="image" return="false"> input type image는 클릭 시 자동으로 submit.. 유효성 검사를 원한다면 return false로 막아두기.     -->
 	   </td>   
 	  </tr>    
   </table>

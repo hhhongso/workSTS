@@ -19,11 +19,12 @@ import member.bean.MemberDTO;
 import member.bean.ZipcodeDTO;
 
 @Controller
+@RequestMapping("/member")
 public class MemberController {
 	@Autowired
 	private MemberService memberService;
 	
-	@RequestMapping("/member/login") 
+	@RequestMapping("/login") 
 	@ResponseBody
 	public ModelAndView login(@RequestBody Map<String, Object> map, HttpSession session) {
 		MemberDTO memberDTO = memberService.isLogin(map);
@@ -40,13 +41,14 @@ public class MemberController {
 		return mav;
 	}
 	
-	@RequestMapping("/member/logout")
-	@ResponseBody
-	public void logout(HttpSession session) {
+	@RequestMapping("/logout")
+	//@ResponseBody : forward 방식이 아니라, redirect 방식으로 /main/index로 이동. 
+	public ModelAndView logout(HttpSession session) {
 		session.invalidate();
+		return new ModelAndView("redirect:/main/index");
 	}
 	
-	@RequestMapping("/member/writeForm")
+	@RequestMapping("/writeForm")
 	public ModelAndView writeForm() {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("display", "/member/writeForm.jsp");
@@ -55,7 +57,7 @@ public class MemberController {
 		return mav;
 	}
 	
-	@RequestMapping("/member/checkId")
+	@RequestMapping("/checkId")
 	@ResponseBody
 	public String checkId(@RequestParam String id) {
 		MemberDTO memberDTO = memberService.checkId(id);
@@ -63,20 +65,19 @@ public class MemberController {
 		else return "notUsable";
 	}
 	
-	@RequestMapping("/member/checkPostForm")
+	@RequestMapping("/checkPostForm")
 	public String checkPostForm() {
 		return "/member/checkPost";
 	}
 	
-	@RequestMapping("/member/checkPost")
-	public ModelAndView checkPost(@RequestBody Map<String, Object> map) {
+	@RequestMapping("/checkPost") //serialize() 하여 데이터 보낼 시, @RequestParam Map 으로도 가능. 단, JSON 형식으로 데이터를 보낸다면 반드시 @requestbody 를 통해 받아야 한다.
+	public ModelAndView checkPost(@RequestBody Map<String, Object> map) {   
 		List<ZipcodeDTO> list = memberService.checkPost(map);
 		for (ZipcodeDTO zipcodeDTO : list) {
 			zipcodeDTO.setSigungu(zipcodeDTO.getSigungu() == null ? "" : zipcodeDTO.getSigungu()); 
 			zipcodeDTO.setRi(zipcodeDTO.getRi() == null ? "" : zipcodeDTO.getRi()); 
 			zipcodeDTO.setBuildingname(zipcodeDTO.getBuildingname() == null ? "" : zipcodeDTO.getBuildingname());
-			
-			//list.add(zipcodeDTO);				
+						
 		}
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("list", list);
@@ -84,10 +85,13 @@ public class MemberController {
 		return mav;
 	}
 	
-	@RequestMapping("/member/write")
+	@RequestMapping("/write")
 	@ResponseBody
 	public void write(@ModelAttribute MemberDTO memberDTO) {
 		memberService.write(memberDTO);
+		// ajax가 아니라 submit() 으로 바로 보낸다면  
+		//model.addAttribute("display","/member/write.jsp");
+		//return "/main/index";
 	}
 	
 }
