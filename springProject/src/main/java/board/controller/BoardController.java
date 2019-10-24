@@ -93,7 +93,7 @@ public class BoardController {
 	}
 	
 	@RequestMapping("/boardSearch")
-	public ModelAndView boardSearch(@RequestParam String pg, @RequestParam Map<String, Object> map, HttpSession session, ModelAndView mav) {
+	public ModelAndView boardSearch(@RequestParam(required=false, defaultValue="1") String pg, @RequestParam Map<String, Object> map, HttpSession session, ModelAndView mav) {
 		String memId = (String) session.getAttribute("memId");	
 		
 		setBoardPaging(pg, map);
