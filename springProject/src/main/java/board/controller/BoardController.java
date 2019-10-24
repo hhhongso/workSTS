@@ -23,6 +23,8 @@ import board.service.BoardService;
 public class BoardController {
 	@Autowired
 	private BoardService boardService;
+	@Autowired
+	private BoardPaging boardPaging;
 	
 	@RequestMapping("/boardWriteForm")
 	public String boardWriteForm(Model model) {
@@ -48,38 +50,84 @@ public class BoardController {
 	}
 	
 	@RequestMapping("/boardList")
-	public String boardList(Model model) {
+	public String boardList(@RequestParam(required=false, defaultValue="1")String pg, Model model) {
+		model.addAttribute("pg", pg);
 		model.addAttribute("display", "/board/boardList.jsp");
 		return "/main/index";
 	}
-
+	
 	@RequestMapping("/getBoardList")
-	public ModelAndView getBoardList(@RequestParam String page, ModelAndView mav) {
-		int pg = Integer.parseInt(page);
-		int endNum = pg *10; 
-		int startNum = endNum -9; 
+	public ModelAndView getBoardList(@RequestParam String pg, ModelAndView mav, HttpSession session) {
+		String memId = (String) session.getAttribute("memId");		
+		Map<String, Object> map = new HashMap<String, Object>();
 		
-		int totalArticle = boardService.getTotArticle();
-		
-		
-		BoardPaging boardPaging = new BoardPaging();
-		boardPaging.setCurrentPage(pg);
-		boardPaging.setPageBlock(5);
-		boardPaging.setPageSize(10);
-		boardPaging.setTotalArticle(totalArticle);
-		boardPaging.makePagingHTML();
-		
-		Map<String, Integer> map = new HashMap<String, Integer>();
-		map.put("endNum", endNum);
-		map.put("startNum", startNum);
-		System.out.println("endNum: "+endNum);
-		System.out.println("startNum: "+startNum);
+		setBoardPaging(pg, map);		
 		List<BoardDTO> list = boardService.getBoardList(map);
 	
+		mav.addObject("memId", memId);
+		mav.addObject("pg", boardPaging.getCurrentPage());
 		mav.addObject("boardPaging", boardPaging);
 		mav.addObject("list", list);
-
 		mav.setViewName("jsonView");
 		return mav; 
 	}
+	
+	
+	@RequestMapping("/boardView")
+	public String boardView(@RequestParam String seq, @RequestParam String pg, Model model) {		
+		model.addAttribute("seq", seq);
+		model.addAttribute("pg", pg);
+		model.addAttribute("display", "/board/boardView.jsp");
+		return "/main/index";
+		
+	}
+	
+	@RequestMapping("/getBoardView")
+	public ModelAndView getBoardView(@RequestParam String seq, @RequestParam String pg, ModelAndView mav) {
+		BoardDTO boardDTO = boardService.getBoardView(Integer.parseInt(seq));
+		mav.addObject("pg", pg);
+		mav.addObject("boardDTO", boardDTO);
+		mav.setViewName("jsonView");
+		
+		return mav; 
+	}
+	
+	@RequestMapping("/boardSearch")
+	public ModelAndView boardSearch(@RequestParam String pg, @RequestParam Map<String, Object> map, HttpSession session, ModelAndView mav) {
+		String memId = (String) session.getAttribute("memId");	
+		
+		setBoardPaging(pg, map);
+		List<BoardDTO> list = boardService.getSearchList(map);
+		
+		mav.addObject("memId", memId);
+		mav.addObject("pg", boardPaging.getCurrentPage());
+		mav.addObject("boardPaging", boardPaging);
+		mav.addObject("list", list);
+		mav.setViewName("jsonView");
+		return mav;
+	}
+	
+	//페이징 부분 
+		public void setBoardPaging(String pg, Map<String, Object> map) {
+			int page = Integer.parseInt(pg);
+			int endNum = page *10; 
+			int startNum = endNum -9; 
+			
+			int totalArticle;
+			if(map.containsKey("searchOp")) totalArticle= boardService.getSearchTotArticle(map);
+			else totalArticle = boardService.getTotArticle();
+			
+			boardPaging.setCurrentPage(page);
+			boardPaging.setPageBlock(5);
+			boardPaging.setPageSize(10);
+			boardPaging.setTotalArticle(totalArticle);
+			if(map.containsKey("searchOp")) boardPaging.makeSearchPagingHTML();
+			else boardPaging.makePagingHTML();
+			
+			map.put("endNum", endNum);
+			map.put("startNum", startNum);		
+			
+		}
+	
+	
 }

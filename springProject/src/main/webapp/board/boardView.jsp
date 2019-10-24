@@ -15,30 +15,56 @@
 }
 </style>
 
-<c:if test="${boardDTO != null }">
 	<form action="">
-		<table frame="hsides" rules="rows" style="width:400px; height:200px;">
-			<tr>
-				<td colspan = 3><font size=7pt><b>${boardDTO.subject }</b></font></td>
-			</tr>
-			<tr>
-				<td>글번호: ${boardDTO.seq }</td>
-				<td>작성자: ${boardDTO.name }</td>
-				<td>조회수: ${boardDTO.hit }</td>
-			</tr>
-			<tr>
-				<td class="content" colspan = 3 valign="top"> ${boardDTO.content }
-				</td>
-			</tr>		
+		<input type="hidden" id="viewPg" value="${pg }">
+		<input type="hidden" id="viewSeq" value="${seq }">
+		<table class="bvTb" frame="hsides" rules="rows" style="width:100%; height:200px;">
 		</table>
 		<c:if test="${memId == boardDTO.id }">		
-			<input type="button" value="글수정" onclick="location.href='/miniProject/board/boardModifyForm.do?seq=${boardDTO.seq }&pg=${pg }'">
+			<input type="button" value="글수정" onclick="location.href='/springProject/board/boardModifyForm?seq=${boardDTO.seq }&pg=${pg }'">
 			<input type="button" value="글삭제" onclick="delConfirm(${boardDTO.seq})">
 		</c:if>
-		<input type="button" value="목록" onclick="location.href='/miniProject/board/boardList.do?pg=${pg }'">
-		<input type="button" value="답글쓰기" onclick="location.href='/miniProject/board/boardReplyForm.do?pg=${pg }&pseq=${boardDTO.seq}'"> <br>
-		
+		<input type="button" value="목록" onclick="location.href='/springProject/board/boardList?pg=${pg }'">
+		<input type="button" value="답글쓰기" onclick="location.href='/springProject/board/boardReplyForm?pg=${pg }&pseq=${boardDTO.seq}'"> <br>
+	
 	</form>
-</c:if>
 
-<script src="../js/board.js"></script>
+
+<script src="../resources/js/board.js"></script>
+<script>
+
+$().ready(function(){ //document = boardView
+	$.ajax({
+		type:'post',
+		url:'../board/getBoardView',
+		data:{'seq' : $('#viewSeq').val(), 
+			'pg': $('#viewPg').val()},
+		dataType: 'json',
+		success: function(data){
+			console.log(data.boardDTO);
+			$('<tr/>').append($('<td/>', {
+				colspan: 3				
+				}).append($('<h3/>', {
+					text: data.boardDTO.subject
+					}))
+				).appendTo('.bvTb');
+			
+			$('<tr/>').append($('<td/>', {
+				text: '글번호: '+ data.boardDTO.seq
+			})).append($('<td/>', {
+				text: '작성자: '+ data.boardDTO.name
+			})).append($('<td/>', {
+				text: '조회수: '+ data.boardDTO.hit
+			})).appendTo('.bvTb');
+			$('<tr/>').append($('<td/>', {
+				colspan: 3,
+				text: data.boardDTO.content
+			})).appendTo('.bvTb');
+			
+			
+		},
+		error: function(){}
+	});
+	
+}); 
+</script>

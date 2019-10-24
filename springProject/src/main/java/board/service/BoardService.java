@@ -9,8 +9,14 @@ public interface BoardService {
 
 	public void write(BoardDTO boardDTO);
 
-	public List<BoardDTO> getBoardList(Map<String, Integer> map);
+	public List<BoardDTO> getBoardList(Map<String, Object> map);
 
 	public int getTotArticle();
+
+	public BoardDTO getBoardView(int seq);
+
+	public int getSearchTotArticle(Map<String, Object> map);
+
+	public List<BoardDTO> getSearchList(Map<String, Object> map);
 
 }

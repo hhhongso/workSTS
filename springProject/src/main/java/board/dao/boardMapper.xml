@@ -12,14 +12,29 @@
 	</select>
 	
 	<select id="getBoardList" parameterType="java.util.Map" resultType="boardDTO">
-		select * from 
+		<!-- select * from 
 			(select rownum rn, temp.* from (select *from board order by ref desc, step asc) temp) 
-			where rn between #{startNum} and #{endNum}
-		<!-- <![CDATA[
+			where rn between #{startNum} and #{endNum}-->
+		<![CDATA[
 			select * from 
 			(select rownum rn, temp.* from (select *from board order by ref desc, step asc) temp) 
 			where rn >= #{startNum} and rn <= #{endNum}
-		]]>  -->
+		]]>  
+	</select>
+	
+	<select id="getBoardView" parameterType="Integer" resultType="boardDTO">
+		select*from board where seq =#{seq}
+	</select>
+	
+	<select id="getSearchTotArticle" parameterType="java.util.Map" resultType="Integer">
+		select count(*) from board where ${searchOp} like '%'||#{searchVal}||'%'
+	</select>
+	
+	<select id="getSearchList" parameterType="java.util.Map" resultType="boardDTO">
+		select * from 
+		(select rownum rn, temp.* from 
+		(select * from board where ${searchOp} like '%'||#{searchVal}||'%' order by ref desc, step asc) temp) 
+		where rn between #{startNum} and #{endNum}
 	</select>
 
 </mapper>

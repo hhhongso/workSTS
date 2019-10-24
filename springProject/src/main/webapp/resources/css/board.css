@@ -1,8 +1,8 @@
 @charset "UTF-8";
 
 .subject{font-weight: normal;}
-.subject a:link{color: black; text-decoration:none;}
-.subject a:hover{
+#subjectA:link{color: black; text-decoration:none;}
+#subjectA:hover{
  	cursor:pointer; 
 	color:green;
 	text-decoration: underline;
@@ -14,18 +14,8 @@
 	color:red;
 	text-decoration:underline;
 }
-table{
-	width: 100%;
-/* 	border-top: 1px solid;
-	border-collapse: collapse; */
-	text-align: center;
-}
 
-th, td{
+table .blTbody th, td{
 	border-bottom:1px solid;
 	padding: 10px;
-}
-
-td.subject{
-	text-align:left;
 }

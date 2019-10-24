@@ -8,84 +8,52 @@ $('.btnBoardWrite').click(function(){
 	else $('form[name=boardWriteForm]').submit();
 });
 
-$().ready(function(){
+$().ready(function(){ //여기서 document = boardList.jsp
 	$.ajax({
+		type: 'post',
 		url:'../board/getBoardList',
-		data: {'page': 1},
+		data: {'pg': $('#pg').val()}, // hidden value 값
 		dataType:'json',
 		success: function(data){
 			console.log(data.list);
 			$.each(data.list, function(index, value){
 				$('<tr/>').append($('<td/>', {
+					align: 'center',
 					text:value.seq
 				})).append($('<td/>').append($('<a/>', {
-					href: '#', 
+					id: 'subjectA',
+					class: value.seq+'',
+					href: '#',				
 					text:value.subject
 				}))).append($('<td/>', {
+					align: 'center',
 					text:value.id
 				})).append($('<td/>', {
+					align: 'center',
 					text:value.logtime
 				})).append($('<td/>', {
+					align: 'center',
 					text:value.hit
 				})).appendTo($('.blTbody'));
 			}); //$.each - data.list
 			
-			$('.divBpg').append(data.boardPaging.pagingHTML).css('cursor', 'pointer');
-					
+			$('.divBpg').append(data.boardPaging.pagingHTML);
+			$('.divBpg a').css('cursor', 'pointer');			
+
+			$('.blTbody').on('click', '#subjectA', function(){
+				if(data.memId == null) alert("먼저 로그인 해주세요! ");
+				else{
+					//alert($(this).attr('class'));
+					location.href='/springProject/board/boardView?seq='+$(this).attr('class')+'&pg='+$('#pg').val();
+				}
+			});
 		},
 		error: function(err){
 			console.log(err);
 		}
-		
-	});
-	
-	
-
-	$('.divBpg').on('click', $('.divBpg > a#paging'), function(){
-
-		alert($('.divBpg > a#paging:hover').attr('class'));	
-
-		$.ajax({
-			url:'../board/getBoardList',
-			data: {'page': $('.divBpg > a#paging:hover').text()},
-			dataType:'json',
-			success: function(data){
-				$('.divBpg').empty();
-				$('.blTbody').empty();
-				console.log(data.list);
-				$.each(data.list, function(index, value){
-					$('<tr/>').append($('<td/>', {
-						text:value.seq
-					})).append($('<td/>').append($('<a/>', {
-						href: '#', 
-						text:value.subject
-					}))).append($('<td/>', {
-						text:value.id
-					})).append($('<td/>', {
-						text:value.logtime
-					})).append($('<td/>', {
-						text:value.hit
-					})).appendTo($('.blTbody'));
-				}); //$.each - data.list
-				
-				$('.divBpg').append(data.boardPaging.pagingHTML).css('cursor', 'pointer');
-			},
-			error: function(err){
-				console.log(err);
-			}
-		});
-	});
+	});	
 });
 
-
-
-function isLogin(id, seq, pg){
-	if(id == '') {
-		alert("먼저 로그인 해주세요! ");
-	} else {
-		location.href="/miniProject/board/boardView.do?seq="+seq+"&pg="+pg;
-	}
-}
 
 function delConfirm(seq){
 	if(confirm("정말 삭제하시겠습니까?")){
@@ -95,14 +63,54 @@ function delConfirm(seq){
 	}
 }
 
-function searchBoard(){
-	var searchWord = document.boardListForm.searchWord.value;
-	if(searchWord == "") alert("검색어를 입력하세요");
-	else document.boardListForm.submit();
-
-//		var option = document.querySelector("#option");
-//		var searchOp;
-//		for (var i = 0; i < option.length; i++) {
-//			if(option[i].selected) searchOp = option[i].value;
-//		}
+function boardSearch(){
+	$.ajax({
+		type:'post',
+		url: '../board/boardSearch',
+		data: {'pg': '1',
+			'searchOp': $('#searchOp').val(),
+			'searchVal' : $('#searchVal').val() },
+		dataType: 'json',
+		success: function(data){
+			$('.blTbody').empty();
+			$('.divBpg').empty();
+			$.each(data.list, function(index, value){
+				$('<tr/>').append($('<td/>', {
+					align: 'center',
+					text:value.seq
+				})).append($('<td/>').append($('<a/>', {
+					id: 'subjectA',
+					class: value.seq+'',
+					href: '#',				
+					text:value.subject
+				}))).append($('<td/>', {
+					align: 'center',
+					text:value.id
+				})).append($('<td/>', {
+					align: 'center',
+					text:value.logtime
+				})).append($('<td/>', {
+					align: 'center',
+					text:value.hit
+				})).appendTo($('.blTbody'));
+			}); //$.each - data.list
+			
+			$('.divBpg').append(data.boardPaging.pagingHTML);
+			$('.divBpg a').css('cursor', 'pointer');
+		},
+			error: function(){}
+		});
 }
+
+
+$('.btnBoardSearch').click(function(){
+	if($('#searchVal').val() == '') $('.divBoardSearch').text('검색어를 입력하세요').css('color', 'red').css('font-size', '8pt');
+	else boardSearch();
+	
+	$('.divBpg').on('click', 'span', function(){ // 페이지 이동 
+		boardSearch();
+	});
+
+});
+			
+	

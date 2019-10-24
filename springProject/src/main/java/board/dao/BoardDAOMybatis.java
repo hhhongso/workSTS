@@ -22,13 +22,28 @@ public class BoardDAOMybatis implements BoardDAO {
 	}
 
 	@Override
-	public List<BoardDTO> getBoardList(Map<String, Integer> map) {
+	public List<BoardDTO> getBoardList(Map<String, Object> map) {
 		return sqlSession.selectList("boardSQL.getBoardList", map);
 	}
 
 	@Override
 	public int getTotArticle() {
 		return sqlSession.selectOne("boardSQL.getTotArticle");
+	}
+
+	@Override
+	public BoardDTO getBoardView(int seq) {
+		return sqlSession.selectOne("boardSQL.getBoardView", seq);
+	}
+
+	@Override
+	public int getSearchTotArticle(Map<String, Object> map) {
+		return sqlSession.selectOne("boardSQL.getSearchTotArticle", map);
+	}
+
+	@Override
+	public List<BoardDTO> getSearchList(Map<String, Object> map) {
+		return sqlSession.selectList("boardSQL.getSearchList", map);
 	}
 
 }

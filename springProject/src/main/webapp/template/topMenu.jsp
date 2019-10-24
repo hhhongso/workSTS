@@ -20,4 +20,4 @@ a:hover{
 	<a href="/springProject/imageboard/imageboardWriteForm">이미지 등록</a> &emsp;
 </c:if>
 
-<a href="/springProject/board/boardList">게시판 글목록</a>
+<a class="menu_boardList" href="/springProject/board/boardList">게시판 글목록</a>
