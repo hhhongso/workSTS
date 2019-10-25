@@ -19,4 +19,6 @@ public interface BoardDAO {
 
 	public List<BoardDTO> getSearchList(Map<String, Object> map);
 
+	public void writeReply(BoardDTO boardDTO);
+
 }

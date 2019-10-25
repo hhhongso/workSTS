@@ -15,24 +15,45 @@
 }
 </style>
 
-	<form action="">
-		<input type="hidden" id="viewPg" value="${pg }">
-		<input type="hidden" id="viewSeq" value="${seq }">
+	<form name="boardViewForm">
+		<input type="hidden" id="viewPg" name="viewPg" value=${pg }>
+		<input type="hidden" id="viewSeq" name="viewSeq" value=${seq }>
 		<table class="bvTb" frame="hsides" rules="rows" style="width:100%; height:200px;">
 		</table>
-		<c:if test="${memId == boardDTO.id }">		
-			<input type="button" value="글수정" onclick="location.href='/springProject/board/boardModifyForm?seq=${boardDTO.seq }&pg=${pg }'">
-			<input type="button" value="글삭제" onclick="delConfirm(${boardDTO.seq})">
-		</c:if>
+		<input type="hidden" id="viewId" name="viewId">
+			
+		<span id="showme" style="display: none;">	
+			<input type="button" value="글수정" onclick="mode(1)">
+			<input type="button" value="글삭제" onclick="mode(2)">
+		</span>
+		
 		<input type="button" value="목록" onclick="location.href='/springProject/board/boardList?pg=${pg }'">
-		<input type="button" value="답글쓰기" onclick="location.href='/springProject/board/boardReplyForm?pg=${pg }&pseq=${boardDTO.seq}'"> <br>
+		<input type="button" value="답글쓰기" onclick="mode(3)"> <br> 
 	
 	</form>
 
 
 <script src="../resources/js/board.js"></script>
 <script>
-
+function mode(num){
+	if(num == 1) {
+		document.boardViewForm.method = 'post';
+		document.boardViewForm.action = '/springProject/board/boardModifyForm';
+		document.boardViewForm.submit();
+	} else if(num == 2){
+		document.boardViewForm.method = 'post';
+		document.boardViewForm.action = '/springProject/board/boardDelete';
+		document.boardViewForm.submit();
+	} else {
+		document.boardViewForm.method = 'post';
+		document.boardViewForm.action = '/springProject/board/boardReplyForm';
+		document.boardViewForm.submit();
+	}
+	
+	
+}
+</script>
+<script>
 $().ready(function(){ //document = boardView
 	$.ajax({
 		type:'post',
@@ -61,6 +82,8 @@ $().ready(function(){ //document = boardView
 				text: data.boardDTO.content
 			})).appendTo('.bvTb');
 			
+			$('#viewId').val(data.boardDTO.id);
+			if('${memId}' == data.boardDTO.id) $('#showme').show();
 			
 		},
 		error: function(){}

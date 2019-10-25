@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <style type="">
 th{ width: 100px;}
@@ -7,7 +8,14 @@ th{ width: 100px;}
 </style>
 
 	<form name="boardWriteForm" method="post" action="/springProject/board/boardWrite">
-		<h3> 글쓰기 </h3>
+		<c:if test="${pseq == null }">
+			<h3> 글쓰기 </h3>		</c:if>
+		<c:if test="${pseq != null }">
+			<h3> 답글쓰기 </h3>		
+	
+			<input type="hidden" name="pg" value="${pg}">
+			<input type="hidden" name="pseq" value="${pseq}">
+		</c:if>
 		<table border="10">
 			<tr>
 				<th>제목</th>

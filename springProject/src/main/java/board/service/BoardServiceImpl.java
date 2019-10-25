@@ -44,4 +44,9 @@ public class BoardServiceImpl implements BoardService {
 		return boardDAO.getSearchList(map);
 	}
 
+	@Override
+	public void writeReply(BoardDTO boardDTO) {
+		boardDAO.writeReply(boardDTO);
+	}
+
 }

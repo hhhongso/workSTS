@@ -46,4 +46,17 @@ public class BoardDAOMybatis implements BoardDAO {
 		return sqlSession.selectList("boardSQL.getSearchList", map);
 	}
 
+	@Override
+	public void writeReply(BoardDTO boardDTO) {
+		BoardDTO pDTO = getBoardView(boardDTO.getPseq());
+		sqlSession.update("boardSQL.replyBoard1", pDTO); 
+		
+		boardDTO.setRef(pDTO.getRef());
+		boardDTO.setLev(pDTO.getLev()+1);
+		boardDTO.setStep(pDTO.getStep()+1);
+		sqlSession.insert("boardSQL.replyBoard2", boardDTO); //2. 답글쓰기
+		sqlSession.update("boardSQL.replyBoard3", boardDTO.getPseq());
+		
+	}
+
 }
