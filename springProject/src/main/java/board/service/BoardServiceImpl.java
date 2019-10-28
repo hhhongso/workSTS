@@ -49,4 +49,10 @@ public class BoardServiceImpl implements BoardService {
 		boardDAO.writeReply(boardDTO);
 	}
 
+	@Override
+	public void deleteBoard(int seq) {
+		boardDAO.deleteBoard(seq);
+		
+	}
+
 }

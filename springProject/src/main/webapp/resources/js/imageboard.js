@@ -1,3 +1,15 @@
+$('input[class^=txtImage]').focusout(function(){
+	$('div[class^=divImg]').empty();
+	console.log($(this).next());
+	if($('.txtImageId').val() == 'img_' || $(this).val() == '') $(this).next().text('필수 입력칸입니다. ').css('color', 'red').css('font-size', '8pt');
+});
+
+
+$('.btnImageWrite').click(function(){
+	
+});
+
+
 function checkImageboard(){
 	if(document.imageboardWriteForm.imageId.value == "") alert("상품코드를 입력하세요.");
 	else if(document.imageboardWriteForm.imageName.value == "") alert("상품명을 입력하세요.");
@@ -10,7 +22,7 @@ function checkImageboard(){
 
 	var checkbox = document.querySelectorAll(".cbx");
 	var cbxMain =document.querySelector(".cbxMain");
-	cbxMain.addEventListener("change", cbxChecked);
+	//cbxMain.addEventListener("change", cbxChecked);
 
 function cbxChecked(event){
 	event.stopPropagation(); 

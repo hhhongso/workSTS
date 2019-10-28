@@ -86,9 +86,7 @@ $().ready(function(){ //여기서 document = boardList.jsp
 					$('<tr/>').append($('<td/>', {
 						align: 'center',
 						text:''
-					})).append($('<td/>').append($('<img>', {
-						src: '../image/reply.gif'
-					})).append($('<a/>', {
+					})).append($('<td/>').append($('<a/>', {
 						id: 'subjectA',
 						'class': value.seq+'',
 						href: '#',				
@@ -103,6 +101,14 @@ $().ready(function(){ //여기서 document = boardList.jsp
 						align: 'center',
 						text:value.hit
 					})).appendTo($('.blTbody'));	
+				}
+				
+				for(i=0; i< value.lev; i++) {
+					$('.'+value.seq).before('&emsp;');
+				}
+				
+				if(value.pseq != 0){
+					$('.'+value.seq).before($('<img>', {src: '../image/reply.gif'}));
 				}
 			}); //$.each - data.list
 			

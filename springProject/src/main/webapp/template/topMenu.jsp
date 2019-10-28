@@ -16,7 +16,7 @@ a:hover{
 	<a href="/springProject/imageboard/imageboardList">이미지(상품) 목록보기</a> &emsp;
 </c:if>
 
-<c:if test="${memId == 'admin' }">
+<c:if test="${memId eq 'admin' }">
 	<a href="/springProject/imageboard/imageboardWriteForm">이미지 등록</a> &emsp;
 </c:if>
 

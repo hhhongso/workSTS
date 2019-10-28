@@ -138,25 +138,26 @@ public class BoardController {
 		
 	}
 	
-	/*
-	이렇게 하면 스택 오버 플로 걸리네
-	@RequestMapping("/boardReplyForm")
-	public String boardReplyForm(@RequestParam Map<String, Object> map, ModelAndView mav) {
-		mav.addObject("pseq",map.get("viewSeq"));
-		mav.addObject("pg", map.get("viewPg"));
-		mav.addObject("id", map.get("viewId"));
-		mav.addObject("display", "/board/boardReplyForm.jsp");
-		return "/main/index";
-		
-	}
-	*/
+	//ModelAndView: Model과 View를 동시에 설정&리턴 가능. 뷰와 모델을 기술, 뷰 정보를 전달할 필요가 있을 때 사용.  
+	//Model, ModelMap: Model에 데이터를 저정 후 view에서 데이터에 접근이 가능. 뷰로 전달할 모델값만 기술.
 	@RequestMapping("/boardReplyForm")
 	public String boardReplyForm(@RequestParam Map<String, Object> map, Model model) {
 		model.addAttribute("pseq",map.get("viewSeq"));
 		model.addAttribute("pg", map.get("viewPg"));
-		model.addAttribute("id", map.get("viewId"));
 		model.addAttribute("display", "/board/boardWriteForm.jsp");
 		return "/main/index";
+		
+	}
+	
+	@RequestMapping("/boardDelete")
+	public ModelAndView boardDelete(@RequestParam String viewSeq, ModelAndView mav) {
+		int seq = Integer.parseInt(viewSeq);
+		boardService.deleteBoard(seq);
+		mav.addObject("pg", "1");
+		mav.addObject("display", "/board/boardList.jsp");
+		mav.setViewName("/main/index");
+		
+		return mav; 
 		
 	}
 	

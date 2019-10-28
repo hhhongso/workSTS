@@ -36,15 +36,17 @@
 <script src="../resources/js/board.js"></script>
 <script>
 function mode(num){
-	if(num == 1) {
+	if(num == 1) { //수정
 		document.boardViewForm.method = 'post';
 		document.boardViewForm.action = '/springProject/board/boardModifyForm';
 		document.boardViewForm.submit();
-	} else if(num == 2){
-		document.boardViewForm.method = 'post';
-		document.boardViewForm.action = '/springProject/board/boardDelete';
-		document.boardViewForm.submit();
-	} else {
+	} else if(num == 2){ //삭제
+		if(confirm('정말 삭제하시겠습니까?')){
+			document.boardViewForm.method = 'post';
+			document.boardViewForm.action = '/springProject/board/boardDelete';
+			document.boardViewForm.submit();			
+		}
+	} else { //답글
 		document.boardViewForm.method = 'post';
 		document.boardViewForm.action = '/springProject/board/boardReplyForm';
 		document.boardViewForm.submit();

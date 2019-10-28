@@ -218,7 +218,7 @@ $('.btnLogout').click(function() {
 		type : 'post',
 		url : '/springProject/member/logout',
 		success : function() {
-			//location.href = '../main/index';
+			location.href = '../main/index';
 		},
 		error : function(err) {
 		}

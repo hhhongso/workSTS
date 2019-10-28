@@ -21,4 +21,6 @@ public interface BoardDAO {
 
 	public void writeReply(BoardDTO boardDTO);
 
+	public void deleteBoard(int seq);
+
 }

@@ -59,4 +59,11 @@ public class BoardDAOMybatis implements BoardDAO {
 		
 	}
 
+	@Override
+	public void deleteBoard(int seq) {
+		BoardDTO pDTO = getBoardView(seq);
+		sqlSession.delete("boardSQL.deleteBoard", seq);
+		
+	}
+
 }

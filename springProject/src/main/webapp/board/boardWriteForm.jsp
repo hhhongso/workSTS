@@ -9,13 +9,15 @@ th{ width: 100px;}
 
 	<form name="boardWriteForm" method="post" action="/springProject/board/boardWrite">
 		<c:if test="${pseq == null }">
-			<h3> 글쓰기 </h3>		</c:if>
+			<h3> 글쓰기 </h3>		
+		</c:if>
+			
 		<c:if test="${pseq != null }">
-			<h3> 답글쓰기 </h3>		
-	
+			<h3> 답글쓰기 </h3>			
 			<input type="hidden" name="pg" value="${pg}">
 			<input type="hidden" name="pseq" value="${pseq}">
 		</c:if>
+		
 		<table border="10">
 			<tr>
 				<th>제목</th>

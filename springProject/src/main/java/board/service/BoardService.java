@@ -21,4 +21,6 @@ public interface BoardService {
 
 	public void writeReply(BoardDTO boardDTO);
 
+	public void deleteBoard(int seq);
+
 }
