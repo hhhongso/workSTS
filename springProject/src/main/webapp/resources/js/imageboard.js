@@ -1,24 +1,40 @@
-$('input[class^=txtImage]').focusout(function(){
+$('input[class^=txtImage]').focusout(function(event, str){
 	$('div[class^=divImg]').empty();
-	console.log($(this).next());
-	if($('.txtImageId').val() == 'img_' || $(this).val() == '') $(this).next().text('필수 입력칸입니다. ').css('color', 'red').css('font-size', '8pt');
+	if($('.txtImageId').val() == 'img_' || $(this).val() == '') {
+		$(this).next().text('필수 입력칸입니다. ').css('color', 'red').css('font-size', '8pt');
+		return false;
+	}
+	return true; 
 });
+
 
 
 $('.btnImageWrite').click(function(){
+	console.log($('input[class^=txtImage]').trigger('focusout', 'checkImageboard'));
+	if($('input[class^=txtImage]').trigger('focusout', 'checkImageboard')){
+		console.log('ok');
+		
+	} 
+	var formData = new FormData($('#imageboardWriteForm')[0]);
+	$.ajax({
+		type: 'post',
+		url: '/springProject/imageboard/imageboardWrite',
+		data: formData, //$('#imageboardWriteForm').serialize() -> serialize 안먹힘? 
+		enctype: 'multipart/form-data',
+		processData: false, // 데이터를 컨텐트 타입에 맞게 변환 여부.  
+		contentType: false, // 요청하는 데이터의 컨텐트 타입. ex)application/json 
+		success: function(data){
+			alert('이미지 등록 성공');
+			//location.href='../imageboard/imageboardList';
+		},
+		error: function(e){
+			console.log(e);
+		}
+		
+	});
 	
 });
 
-
-function checkImageboard(){
-	if(document.imageboardWriteForm.imageId.value == "") alert("상품코드를 입력하세요.");
-	else if(document.imageboardWriteForm.imageName.value == "") alert("상품명을 입력하세요.");
-	else if(document.imageboardWriteForm.imagePrice.value == "") alert("단가를 입력하세요."); //숫자만 들어오게: key.event < ??
-	else if(document.imageboardWriteForm.imageQty.value == "") alert("상품수량을 입력하세요.");
-	else if(document.imageboardWriteForm.imageContent.value == "") alert("내용을 입력하세요.");
-	else if(document.imageboardWriteForm.image1.value == "") alert("파일을 등록하세요.");
-	else document.imageboardWriteForm.submit();
-}
 
 	var checkbox = document.querySelectorAll(".cbx");
 	var cbxMain =document.querySelector(".cbxMain");
