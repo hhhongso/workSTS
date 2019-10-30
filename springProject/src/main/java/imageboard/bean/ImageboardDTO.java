@@ -1,6 +1,11 @@
 package imageboard.bean;
 
+import java.util.Date;
+
 import org.springframework.stereotype.Component;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonFormatTypes;
 
 import lombok.Data;
 
@@ -15,5 +20,6 @@ public class ImageboardDTO {
 	private String imageContent;
 	private String image1; // DTO로 담는 것이 아니라, multipart fileUpload 시킴.
 	private String image2; 
-	private String logtime;
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "YYYY-MM-DD")
+	private Date logtime;
 }

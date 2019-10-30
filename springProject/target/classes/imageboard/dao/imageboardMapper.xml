@@ -4,7 +4,25 @@
 <mapper namespace="imageboardSQL">
 	<insert id="writeImageboard" parameterType="imageboardDTO">
 		insert into imageboard values 
-		(seq_imageboard.nextval, #{imageId}, #{imageName}, #{imagePrice}, #{imageQty}, #{imageContent}, #{image1}, sysdate, #{image2})
-		
+		(seq_imageboard.nextval, #{imageId}, #{imageName}, #{imagePrice}, #{imageQty}, #{imageContent}, #{image1}, sysdate, #{image2})	
 	</insert>
+	
+	<select id="getImageboardList" parameterType="java.util.Map" resultType="imageboardDTO">
+		select * from 
+		(select rownum rn, temp.* from 
+		(select * from imageboard order by seq desc) temp) 
+		where rn between #{startNum} and #{endNum}		
+	</select>
+	
+	<delete id="imageboardDelete" parameterType="java.util.Map">
+		delete from imageboard where seq in
+		<!-- <foreach collection="seqArr" item="seq" index="i" open="(" close=")" separator=",">
+		#{seq} 혹은 ${seq}
+		</foreach> -->
+		<foreach collection="seqArr" index="i" open="(" close=")" separator=",">
+		${seqArr[i]}
+		</foreach>
+		
+	</delete>
+	
 </mapper>

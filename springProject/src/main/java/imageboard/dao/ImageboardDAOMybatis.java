@@ -1,5 +1,8 @@
 package imageboard.dao;
 
+import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -17,6 +20,17 @@ public class ImageboardDAOMybatis implements ImageboardDAO {
 	public void writeImageboard(ImageboardDTO imageboardDTO) {
 		sqlSession.insert("imageboardSQL.writeImageboard", imageboardDTO);
 
+	}
+
+	@Override
+	public List<ImageboardDTO> getImageboardList(Map<String, Integer> map) {
+		return sqlSession.selectList("imageboardSQL.getImageboardList", map);
+	}
+
+	@Override
+	public void imageboardDelete(Map<String, String[]> map) {
+		sqlSession.delete("imageboardSQL.imageboardDelete", map);
+	
 	}
 
 }

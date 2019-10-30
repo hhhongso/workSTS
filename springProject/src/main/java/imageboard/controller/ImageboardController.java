@@ -3,7 +3,9 @@ package imageboard.controller;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import imageboard.bean.ImageboardDTO;
 import imageboard.service.ImageboardService;
@@ -118,6 +121,48 @@ public class ImageboardController {
 		}
 
 	}
+	
+	@RequestMapping("/imageboardList")
+	public String imageboardList(@RequestParam(required = false, defaultValue = "1") String pg, Model model) {
+		model.addAttribute("pg", pg);
+		model.addAttribute("display", "/imageboard/imageboardList.jsp");
+		return "/main/index";
+	}
+	
+	@RequestMapping("/getImageboardList")
+	public ModelAndView getImageboardList(@RequestParam(required = false, defaultValue = "1") String pg, ModelAndView mav) {
+		int endNum = Integer.parseInt(pg) *3;
+		int startNum = endNum -2; 
+		
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("endNum", endNum);
+		map.put("startNum", startNum);
+		
+		List<ImageboardDTO> list = imageboardService.getImageboardList(map);
+		mav.addObject("pg", pg);
+		mav.addObject("list", list);
+		mav.setViewName("jsonView");
+		
+		return mav; 
+	}
+	
+	@RequestMapping("/imageboardDelete")
+	public String imageboardDelete(@RequestParam String[] cbx, Model model) {
+		
+		Map<String, String[]> map = new HashMap<String, String[]>();
+		map.put("seqArr", cbx);
+		imageboardService.imageboardDelete(map);
+		
+		model.addAttribute("display", "/imageboard/imageboardList.jsp");
+		return "/main/index";
+	}
+	
+	@RequestMapping("/imageboardView")
+	public String imageboardView(@RequestParam String seq, @RequestParam String pg) {
+		
+		return "";
+	}
+
 }
 
 

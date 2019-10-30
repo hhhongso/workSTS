@@ -1,47 +1,56 @@
-$('input[class^=txtImage]').focusout(function(event, str){
+$('input[class^=txtImage]').focusout(function (event, str){
 	$('div[class^=divImg]').empty();
 	if($('.txtImageId').val() == 'img_' || $(this).val() == '') {
-		$(this).next().text('필수 입력칸입니다. ').css('color', 'red').css('font-size', '8pt');
-		return false;
+		$(this).next().text('필수 입력칸입니다. ').css('color', 'red').css('font-size', '8pt');		
 	}
-	return true; 
+
 });
 
 
-
 $('.btnImageWrite').click(function(){
-	console.log($('input[class^=txtImage]').trigger('focusout', 'checkImageboard'));
-	if($('input[class^=txtImage]').trigger('focusout', 'checkImageboard')){
-		console.log('ok');
+	console.log("클릭: ");
+	console.log($(this));
+	$('input[class^=txtImage]').focusout(function (event, str){
+		console.log("포커스아웃: ");
+		console.log($(this));
+		$('div[class^=divImg]').empty();
+		if($('.txtImageId').val() == 'img_' || $(this).val() == '') {
+			$(this).next().text('필수 입력칸입니다. ').css('color', 'red').css('font-size', '8pt');		
+			
+		} else {
+			var formData = new FormData($('#imageboardWriteForm')[0]);
+			$.ajax({
+				type: 'post',
+				url: '/springProject/imageboard/imageboardWrite',
+				data: formData, //$('#imageboardWriteForm').serialize() -> serialize 안먹힘? 
+				enctype: 'multipart/form-data',
+				processData: false, // 데이터를 컨텐트 타입에 맞게 변환 여부.  
+				contentType: false, // 요청하는 데이터의 컨텐트 타입. ex)application/json 
+				success: function(data){
+					alert('이미지 등록 성공');
+					location.href='../imageboard/imageboardList';
+				},
+				error: function(e){
+					console.log("실패");
+				}
+				
+			});
+			
+		}	
+
+	});	
 		
-	} 
-	var formData = new FormData($('#imageboardWriteForm')[0]);
-	$.ajax({
-		type: 'post',
-		url: '/springProject/imageboard/imageboardWrite',
-		data: formData, //$('#imageboardWriteForm').serialize() -> serialize 안먹힘? 
-		enctype: 'multipart/form-data',
-		processData: false, // 데이터를 컨텐트 타입에 맞게 변환 여부.  
-		contentType: false, // 요청하는 데이터의 컨텐트 타입. ex)application/json 
-		success: function(data){
-			alert('이미지 등록 성공');
-			//location.href='../imageboard/imageboardList';
-		},
-		error: function(e){
-			console.log(e);
-		}
-		
-	});
 	
 });
 
 
-	var checkbox = document.querySelectorAll(".cbx");
-	var cbxMain =document.querySelector(".cbxMain");
-	//cbxMain.addEventListener("change", cbxChecked);
+
+var checkbox = document.querySelectorAll(".cbx");
+var cbxMain =document.querySelector(".cbxMain");
+cbxMain.addEventListener("change", cbxChecked);
 
 function cbxChecked(event){
-	event.stopPropagation(); 
+	//event.stopPropagation(); 
 	// 자식 element에서 발생된 event가 부모 element순으로 전달 되는 버블 현상을 막아준다.
 	// (자기 자신에게만 이벤트가 유효하도록 stop. 그렇지 않으면 부모(상위 DOM)의 이벤트까지 모두 실행하게 됨.)
 	console.dir(event);
