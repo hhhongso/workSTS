@@ -10,6 +10,7 @@ $('input[class^=txtImage]').focusout(function (event, str){
 $('.btnImageWrite').click(function(){
 	console.log("클릭: ");
 	console.log($(this));
+	
 	$('input[class^=txtImage]').focusout(function (event, str){
 		console.log("포커스아웃: ");
 		console.log($(this));
