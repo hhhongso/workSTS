@@ -1,4 +1,4 @@
-$('input[class^=txtImage]').focusout(function (event, str){
+$('input[class^=txtImage]').focusout(function test(event, str){
 	$('div[class^=divImg]').empty();
 	if($('.txtImageId').val() == 'img_' || $(this).val() == '') {
 		$(this).next().text('필수 입력칸입니다. ').css('color', 'red').css('font-size', '8pt');		
@@ -11,14 +11,15 @@ $('.btnImageWrite').click(function(){
 	console.log("클릭: ");
 	console.log($(this));
 	
-	$('input[class^=txtImage]').focusout(function (event, str){
+	$('input[class^=txtImage]').blur(function (event, str){
 		console.log("포커스아웃: ");
 		console.log($(this));
 		$('div[class^=divImg]').empty();
-		if($('.txtImageId').val() == 'img_' || $(this).val() == '') {
-			$(this).next().text('필수 입력칸입니다. ').css('color', 'red').css('font-size', '8pt');		
-			
+		if($('.txtImageId').val() === 'img_' || $(this).val() == '') {
+			$(this).next().text('필수 22입력칸입니다. ').css('color', 'red').css('font-size', '8pt');		
+			return false;
 		} else {
+			console.log('else');
 			var formData = new FormData($('#imageboardWriteForm')[0]);
 			$.ajax({
 				type: 'post',
@@ -38,8 +39,8 @@ $('.btnImageWrite').click(function(){
 			});
 			
 		}	
-
-	});	
+		console.log('after else');
+	});	//focusout
 		
 	
 });
@@ -48,7 +49,7 @@ $('.btnImageWrite').click(function(){
 
 var checkbox = document.querySelectorAll(".cbx");
 var cbxMain =document.querySelector(".cbxMain");
-cbxMain.addEventListener("change", cbxChecked);
+//cbxMain.addEventListener("change", cbxChecked);
 
 function cbxChecked(event){
 	//event.stopPropagation(); 

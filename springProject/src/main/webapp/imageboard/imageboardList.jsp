@@ -22,7 +22,7 @@
 				<th>합계 </th>
 			</tr>
 		</table>
-	<div style="text-align:center;">${imageboardPaging.pagingHTML}</div>
+	<div class="imgPaging" style="text-align:center;"></div>
 	<div><input type="button" value="선택 삭제" class="btnChoiceDelete"></div>
 </form>
 
@@ -70,7 +70,9 @@ $().ready(function(){
 				$('.'+value.seq).click(function(){
 					location.href='../imageboard/imageboardView?seq='+value.seq+'&pg=${pg}';
 				});
-			});
+			}); // forEach
+			
+			$('.imgPaging').html(data.imageboardPaging.pagingHTML);
 		},
 		error: function(e){
 			console.log(e);

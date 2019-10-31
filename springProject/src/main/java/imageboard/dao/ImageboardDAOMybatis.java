@@ -33,4 +33,14 @@ public class ImageboardDAOMybatis implements ImageboardDAO {
 	
 	}
 
+	@Override
+	public ImageboardDTO getImageboardView(int seq) {
+		return sqlSession.selectOne("imageboardSQL.getImageboardView", seq);
+	}
+	
+	@Override
+	public int getImageboardTotArticle() {
+		return sqlSession.selectOne("imageboardSQL.getImageboardTotArticle");
+	}
+
 }

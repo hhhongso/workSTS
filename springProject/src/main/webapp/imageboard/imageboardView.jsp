@@ -10,20 +10,38 @@ img{
 }
 </style>
 
-    <c:if test="${imageboard != null }">
-		<img src="../storage/${imageboard.image1 }" align="left">
+		<img class="img1" align="left">
 		<div id="zoom" style="position: relative; top:0px; left:-320px;"></div>	
 		
-			<li> 상품명: ${imageboard.imageName } <br></li>
-			<li> 단가: ${String.format("%,d",imageboard.imagePrice) } <br></li>
-			<li> 개수: ${String.format("%,d",imageboard.imageQty) } <br></li>
-			<li> 합계: ${String.format("%,d", imageboard.imagePrice * imageboard.imageQty) } <br></li>
+			<li> 상품명:<span class="spanImgName"></span><br></li>
+			<li> 단가: <span class="spanImgPrice"></span><br></li>
+			<li> 개수: <span class="spanImgQty"></span><br></li>
+			<li> 합계: <span class="spanImgTot"></span> <br></li>
 			<li> 내용: <br>
-			<pre>${imageboard.imageContent}</pre></li>
+			<pre class="preImgContent"></pre></li>
 		
-		<input type="button" value="목록" onclick="location.href='../imageboard/imageboardList.do?pg=${pg}'">  
-   </c:if>
-   
+		<input type="button" value="목록" onclick="location.href='../imageboard/imageboardList?pg=${pg}'">  
+
+<script>
+$().ready(function(){
+	$.ajax({
+		type: 'post',
+		url: '../imageboard/getImageboardView',
+		data: 'seq=${seq}&pg=${pg}',
+		dataType: 'json',
+		success: function(data){
+			$('.img1').attr('src', '../storage/'+data.imageboardDTO.image1);
+			$('.spanImgName').text(data.imageboardDTO.imageName);
+			$('.spanImgPrice').text(data.imageboardDTO.imagePrice);
+			$('.spanImgQty').text(data.imageboardDTO.imageQty);
+			$('.spanImgTot').text((data.imageboardDTO.imagePrice * data.imageboardDTO.imageQty).toLocaleString());
+			$('.preImgContent').text(data.imageboardDTO.imageContent);
+		},
+		error: function(e){}
+		
+	});
+});
+</script>  
 <script>
 window.onload = function(){
 var zoomImg = document.createElement("img");
@@ -39,7 +57,7 @@ image1.appendChild(zoomImg);
 function zoomImage(){
 	var newWindow = window.open("", "", "width:500, height:500");
 	var img = newWindow.document.createElement("img");
-	img.setAttribute("src", "http://localhost:8080/miniProject/storage/${imageboard.image1 }");
+	img.setAttribute("src", "http://localhost:8080/springProject/storage/${imageboard.image1 }");
 								//chrome 은 상대번지로 불가. 절대번지 이용
 	img.setAttribute("style", " width:500px; height:500px;")
 	

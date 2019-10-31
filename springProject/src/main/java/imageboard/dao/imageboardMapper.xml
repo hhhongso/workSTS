@@ -25,4 +25,12 @@
 		
 	</delete>
 	
+	<select id="getImageboardView" parameterType="int" resultType="imageboardDTO">
+		select * from imageboard where seq= #{seq}
+	</select>
+	
+	<select id="getImageboardTotArticle" resultType="int">
+		select count(*) as count from imageboard
+	</select>
+	
 </mapper>

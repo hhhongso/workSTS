@@ -12,4 +12,8 @@ public interface ImageboardDAO {
 
 	public void imageboardDelete(Map<String, String[]> map);
 
+	public ImageboardDTO getImageboardView(int seq);
+
+	public int getImageboardTotArticle();
+
 }
