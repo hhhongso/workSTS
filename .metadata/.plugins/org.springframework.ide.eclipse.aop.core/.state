@@ -2,9 +2,14 @@
 <aop-reference-model>
 <aop-project name="chapter06_1"/>
 <aop-project name="springWebMaven"/>
+<aop-project name="practice"/>
 <aop-project name="chapter01"/>
 <aop-project name="chapter02"/>
 <aop-project name="chapter03">
+<aspect-definition advice-class-name="sample01.LoggingAdvice" advice-method-name="afterTrace" advice-type="AFTER" aspect-end-line-number="30" aspect-name="loggingAdvice" aspect-start-line-number="30" factory-id="org.springframework.ide.eclipse.aop.core.beanAspectDefinitionElementFactory" file="/chapter03/src/cQuickStart.xml" pointcut-expression="execution(public * *.*.*PrintAfter(..))" proxy-target-class="false">
+<aop-reference advice-type="AFTER" bean="1:BeansModel|2:chapter03|3:src/cQuickStart.xml|7:beans:8|8:messageBeanImpl01:11" bean-file="/chapter03/src/cQuickStart.xml" bean-start-line="11" factory-id="org.springframework.ide.eclipse.aop.core.aopReferenceElementFactory" file="/chapter03/src/cQuickStart.xml" source="=chapter03/src&lt;sample01{LoggingAdvice.java[LoggingAdvice~afterTrace" source-start-line="12" target="=chapter03/src&lt;sample01{MessageBeanImpl.java[MessageBeanImpl~viewPrintAfter~QString;" target-start-line="38"/>
+<aop-reference advice-type="AFTER" bean="1:BeansModel|2:chapter03|3:src/cQuickStart.xml|7:beans:8|8:messageBeanImpl01:11" bean-file="/chapter03/src/cQuickStart.xml" bean-start-line="11" factory-id="org.springframework.ide.eclipse.aop.core.aopReferenceElementFactory" file="/chapter03/src/cQuickStart.xml" source="=chapter03/src&lt;sample01{LoggingAdvice.java[LoggingAdvice~afterTrace" source-start-line="12" target="=chapter03/src&lt;sample01{MessageBeanImpl.java[MessageBeanImpl~showPrintAfter" target-start-line="32"/>
+</aspect-definition>
 <aspect-definition advice-class-name="sample01.LoggingAdvice" advice-method-name="beforeTrace()" advice-type="BEFORE" aspect-end-line-number="23" aspect-name="loggingAdvice" aspect-start-line-number="23" factory-id="org.springframework.ide.eclipse.aop.core.beanAspectDefinitionElementFactory" file="/chapter03/src/cQuickStart.xml" pointcut-expression="execution(public void sample01.MessageBeanImpl.*PrintBefore(..))" proxy-target-class="false">
 <aop-reference advice-type="BEFORE" bean="1:BeansModel|2:chapter03|3:src/cQuickStart.xml|7:beans:8|8:messageBeanImpl01:11" bean-file="/chapter03/src/cQuickStart.xml" bean-start-line="11" factory-id="org.springframework.ide.eclipse.aop.core.aopReferenceElementFactory" file="/chapter03/src/cQuickStart.xml" source="=chapter03/src&lt;sample01{LoggingAdvice.java[LoggingAdvice~beforeTrace" source-start-line="8" target="=chapter03/src&lt;sample01{MessageBeanImpl.java[MessageBeanImpl~showPrintBefore" target-start-line="11"/>
 <aop-reference advice-type="BEFORE" bean="1:BeansModel|2:chapter03|3:src/cQuickStart.xml|7:beans:8|8:messageBeanImpl01:11" bean-file="/chapter03/src/cQuickStart.xml" bean-start-line="11" factory-id="org.springframework.ide.eclipse.aop.core.aopReferenceElementFactory" file="/chapter03/src/cQuickStart.xml" source="=chapter03/src&lt;sample01{LoggingAdvice.java[LoggingAdvice~beforeTrace" source-start-line="8" target="=chapter03/src&lt;sample01{MessageBeanImpl.java[MessageBeanImpl~viewPrintBefore" target-start-line="16"/>
@@ -12,10 +17,6 @@
 <aspect-definition advice-class-name="sample01.LoggingAdvice" advice-method-name="trace" advice-type="AROUND" aspect-end-line-number="38" aspect-name="loggingAdvice" aspect-start-line-number="38" factory-id="org.springframework.ide.eclipse.aop.core.beanAspectDefinitionElementFactory" file="/chapter03/src/cQuickStart.xml" pointcut-expression="execution(public * *.*.*Print(..))" proxy-target-class="false">
 <aop-reference advice-type="AROUND" bean="1:BeansModel|2:chapter03|3:src/cQuickStart.xml|7:beans:8|8:messageBeanImpl01:11" bean-file="/chapter03/src/cQuickStart.xml" bean-start-line="11" factory-id="org.springframework.ide.eclipse.aop.core.aopReferenceElementFactory" file="/chapter03/src/cQuickStart.xml" source="=chapter03/src&lt;sample01{LoggingAdvice.java[LoggingAdvice~trace~QProceedingJoinPoint;" source-start-line="16" target="=chapter03/src&lt;sample01{MessageBeanImpl.java[MessageBeanImpl~showPrint" target-start-line="49"/>
 <aop-reference advice-type="AROUND" bean="1:BeansModel|2:chapter03|3:src/cQuickStart.xml|7:beans:8|8:messageBeanImpl01:11" bean-file="/chapter03/src/cQuickStart.xml" bean-start-line="11" factory-id="org.springframework.ide.eclipse.aop.core.aopReferenceElementFactory" file="/chapter03/src/cQuickStart.xml" source="=chapter03/src&lt;sample01{LoggingAdvice.java[LoggingAdvice~trace~QProceedingJoinPoint;" source-start-line="16" target="=chapter03/src&lt;sample01{MessageBeanImpl.java[MessageBeanImpl~viewPrint" target-start-line="55"/>
-</aspect-definition>
-<aspect-definition advice-class-name="sample01.LoggingAdvice" advice-method-name="afterTrace" advice-type="AFTER" aspect-end-line-number="30" aspect-name="loggingAdvice" aspect-start-line-number="30" factory-id="org.springframework.ide.eclipse.aop.core.beanAspectDefinitionElementFactory" file="/chapter03/src/cQuickStart.xml" pointcut-expression="execution(public * *.*.*PrintAfter(..))" proxy-target-class="false">
-<aop-reference advice-type="AFTER" bean="1:BeansModel|2:chapter03|3:src/cQuickStart.xml|7:beans:8|8:messageBeanImpl01:11" bean-file="/chapter03/src/cQuickStart.xml" bean-start-line="11" factory-id="org.springframework.ide.eclipse.aop.core.aopReferenceElementFactory" file="/chapter03/src/cQuickStart.xml" source="=chapter03/src&lt;sample01{LoggingAdvice.java[LoggingAdvice~afterTrace" source-start-line="12" target="=chapter03/src&lt;sample01{MessageBeanImpl.java[MessageBeanImpl~viewPrintAfter~QString;" target-start-line="38"/>
-<aop-reference advice-type="AFTER" bean="1:BeansModel|2:chapter03|3:src/cQuickStart.xml|7:beans:8|8:messageBeanImpl01:11" bean-file="/chapter03/src/cQuickStart.xml" bean-start-line="11" factory-id="org.springframework.ide.eclipse.aop.core.aopReferenceElementFactory" file="/chapter03/src/cQuickStart.xml" source="=chapter03/src&lt;sample01{LoggingAdvice.java[LoggingAdvice~afterTrace" source-start-line="12" target="=chapter03/src&lt;sample01{MessageBeanImpl.java[MessageBeanImpl~showPrintAfter" target-start-line="32"/>
 </aspect-definition>
 </aop-project>
 <aop-project name="chapter04"/>
@@ -31,6 +32,5 @@
 </aop-project>
 <aop-project name="chapter06"/>
 <aop-project name="chapter06_SpringMaven"/>
-<aop-project name="mintcopy"/>
 <aop-project name="springProject"/>
 </aop-reference-model>
