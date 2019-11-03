@@ -36,7 +36,6 @@ INDEX VERSION 1.131+C:\Users\user\Desktop\soyeon\Spring\workSTS\.metadata\.plugi
 4245983023.index
 3520520475.index
 2554926336.index
-4100400542.index
 3113423053.index
 3133167234.index
 2987261431.index
