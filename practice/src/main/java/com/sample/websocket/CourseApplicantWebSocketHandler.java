@@ -5,13 +5,14 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
-@Component
+@ComponentScan
 public class CourseApplicantWebSocketHandler extends TextWebSocketHandler{
 	private Set<WebSocketSession> sessions = Collections.synchronizedSet(new HashSet<WebSocketSession>());
 	//WebSocketSession은 클라이언트와 서버 간의 전이중 통신을 담당하는 객체로, jdbc의 Connection 과 유사하다. 

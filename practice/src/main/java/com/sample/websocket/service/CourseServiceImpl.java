@@ -13,7 +13,7 @@ import com.sample.websocket.dao.CourseDAO;
 public class CourseServiceImpl implements CourseService {
 	@Autowired
 	private CourseDAO courseDAO;
-	@Autowired
+	
 	private CourseApplicantWebSocketHandler handler; 
 	
 	@Override
