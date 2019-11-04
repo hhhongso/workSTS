@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<typeInfoHistroy/>
+<typeInfoHistroy>
+<typeInfo handle="=springProject/C:\/Users\/user\/.m2\/repository\/org\/springframework\/security\/spring-security-web\/5.1.2.RELEASE\/spring-security-web-5.1.2.RELEASE.jar&lt;org.springframework.security.web.authentication(SimpleUrlAuthenticationSuccessHandler.class[SimpleUrlAuthenticationSuccessHandler" modifiers="33" timestamp="1572777403225"/>
+<typeInfo handle="=springProject/C:\/Users\/user\/.m2\/repository\/org\/springframework\/security\/spring-security-web\/5.1.2.RELEASE\/spring-security-web-5.1.2.RELEASE.jar&lt;org.springframework.security.web.authentication(SimpleUrlAuthenticationFailureHandler.class[SimpleUrlAuthenticationFailureHandler" modifiers="33" timestamp="1572777403225"/>
+<typeInfo handle="=springProject/C:\/Users\/user\/.m2\/repository\/org\/springframework\/security\/spring-security-core\/5.1.2.RELEASE\/spring-security-core-5.1.2.RELEASE.jar&lt;org.springframework.security.core.userdetails(UserDetailsService.class[UserDetailsService" modifiers="1537" timestamp="1572777402627"/>
+</typeInfoHistroy>

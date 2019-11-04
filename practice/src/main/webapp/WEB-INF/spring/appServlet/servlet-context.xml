@@ -22,13 +22,13 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<context:component-scan base-package="com.mint.practice"/>
-	
+	<!-- <context:component-scan base-package="com.mint.practice"/> -->
+	<!-- 
 	<websocket:handlers>
 		<websocket:mapping handler="/count" path="myHandler"/>
 	</websocket:handlers>
 	
 	<beans:bean id="myHandler" class="com.sample.websocket.CourseApplicantWebSocketHandler"></beans:bean>
-	
+	 -->
 	
 </beans:beans>
