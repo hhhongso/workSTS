@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
-<form name="loginForm" method="post" action="/test/login"> <!-- j_spring_security_check -->
+<form name="loginForm" method="post" action="/test/loginSecurity"> <!-- 3.x: j_spring_security_check, 4.x: /login -->
 		<table class="tab" border=3>
 			<tr>
 				<th class="idtab">아이디</th>

@@ -7,30 +7,42 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.member.bean.MemberDTO;
 import com.member.service.MemberService;
+import com.security.service.UserAuthServiceImpl;
 
 /**
  * Handles requests for the application home page.
  */
+@Secured(value = { "" })
 @Controller
 public class HomeController {
 	@Autowired
 	private MemberService memberService;
+	@Autowired
+	private UserAuthServiceImpl userAuthServiceImpl;
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
 	
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
@@ -52,44 +64,31 @@ public class HomeController {
 		return "home";
 	}
 	
-	@RequestMapping(value = "/")
-	public String home() {
-		return "home";
-	}
-	
-	@RequestMapping("member/login")
+	@RequestMapping("/member/login")
 	public String login() {
-		return "login";
+		return "/member/login";
 	}
 	
-	@RequestMapping("/login")
-	public ModelAndView securityLogin(@RequestParam(value="error", required = false) String error, 
-							@RequestParam(value="logout", required = false) String logout,
-							@RequestParam Map<String, String> map) {
-		System.out.println("hi");
-		System.out.println(map.get("id"));
-		MemberDTO memberDTO = memberService.getUserById(map.get("id"));
-		 
+	@RequestMapping("/loginSecurity")
+	@ResponseBody
+	public void loginsecurity(@RequestParam String id, @RequestParam String pwd, HttpSession session) {
+		System.out.println("hi security");
+		MemberDTO memberDTO = (MemberDTO) userAuthServiceImpl.loadUserByUsername(id);
+		System.out.println("memberDTO(userDetail) 가져오기");
 		if(memberDTO == null) {
-			throw new UsernameNotFoundException("No user found with username " + memberDTO.getName());
+			System.out.println("확인되지 않은 사용자입니다. ");
+		} else {
+			System.out.println("welcome !!! ");
+			System.out.println(memberDTO.getId());
+			session.setAttribute("memDTO", memberDTO);
 		}
 		
-		Collection<SimpleGrantedAuthority> roles = new ArrayList<SimpleGrantedAuthority>();
-		roles.add(new SimpleGrantedAuthority("ROLE_USER"));
-		UserDetails user = new User(map.get("id"), memberDTO.getPwd(), roles);
-		ModelAndView mav = new ModelAndView();
-		System.out.println(map.get("id") +": "+ memberDTO.getName());
-		//로그인 실패 시
-		if(error != null) {
-			mav.addObject("error", "Invaild id / pwd");
-		}
 		
-		//로그아웃 성공 시
-		if(logout != null) {
-			mav.addObject("msg", "you've been logged out succesfully.");
-		}
-		
-		mav.setViewName("/loginOk");
-		return mav;
 	}
+	
+	@RequestMapping("/admin/hello")
+	public String admin() {
+		return "/admin/hello";
+	}
+
 }

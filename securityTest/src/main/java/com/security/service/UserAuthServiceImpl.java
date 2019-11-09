@@ -2,36 +2,56 @@ package com.security.service;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;
 
 import com.member.bean.MemberDTO;
 import com.member.service.MemberService;
 
-public class UserAuthService implements UserDetailsService {
+public class UserAuthServiceImpl implements UserDetailsService, AuthenticationProvider{
 	@Autowired
 	private MemberService memberService;
 	
 	@Override
 	public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
 		//DB에서 유저 정보를 불러오는 메소드
-		
+		System.out.println("hi loadUserByUserName: " + id);
 		MemberDTO memberDTO = memberService.getUserById(id);
-		 
+		System.out.println("successfully get memberDTO");
+		
+		UserDetails user = (UserDetails) memberDTO;
+		
 		if(memberDTO == null) {
 			throw new UsernameNotFoundException("No user found with username " + memberDTO.getName());
 		}
 		
-		Collection<SimpleGrantedAuthority> roles = new ArrayList<SimpleGrantedAuthority>();
-		roles.add(new SimpleGrantedAuthority("ROLE_USER"));
+		List<GrantedAuthority> roles = new ArrayList<GrantedAuthority>();
 		
-		UserDetails user = new User(id, memberDTO.getPwd(), roles);
+		if(memberDTO.getId().equals("admin")) {
+			roles.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+				
+		} else {
+			roles.add(new SimpleGrantedAuthority("ROLE_USER"));
+			
+		}
+		
+		System.out.println("add role to " + user.getUsername());
+		for (int i = 0; i < roles.size(); i++) {
+			System.out.println("role: "+roles.get(i));
+			
+		}
+
+//        UsernamePasswordAuthenticationToken result = new UsernamePasswordAuthenticationToken(id, pwd, roles);
+//        result.setDetails(new MemberDTO(id, pwd));
 		
 		/*
 		 * 사용자가 입력한 id/pwd 를 검증하기 위해, 저장소(DB)에 해당 id/pwd 가 있는지 확인한다. 
@@ -43,6 +63,18 @@ public class UserAuthService implements UserDetailsService {
 		 */
 		
 		return user;
+	}
+
+	@Override
+	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean supports(Class<?> authentication) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

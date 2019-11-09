@@ -3,6 +3,5 @@
 <configuration>
 	<typeAliases>
 		<typeAlias type="com.member.bean.MemberDTO" alias="member"/>
-		
 	</typeAliases>
 </configuration>
